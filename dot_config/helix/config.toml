@@ -1,0 +1,27 @@
+theme="catppuccin_mocha"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+
+[keys.normal]
+";" = "command_mode"
+
+# lazy git integration thx to the official wiki => https://github.com/helix-editor/helix/wiki/Recipes#git-integration
+C-g = [
+    ":write-all",
+    ":insert-output lazygit >/dev/tty",
+    ":redraw",
+    ":reload-all"
+]
+
+[keys.select]
+";" = "command_mode"
+
