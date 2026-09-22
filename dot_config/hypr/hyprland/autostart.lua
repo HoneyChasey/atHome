@@ -7,4 +7,5 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("ghostty") -- Terminal
   hl.exec_cmd("qs") -- quishell bar
   hl.exec_cmd("hyprpaper")
+  hl.exec_cmd("vicinae server") -- Launch app launcher server
 end)
