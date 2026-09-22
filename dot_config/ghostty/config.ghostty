@@ -1,0 +1,32 @@
+## Themes
+# Go check this command if you want to change -> $ ghostty +list-themes
+theme = Bluloco Dark
+
+# Force use zsh
+command = /usr/bin/zsh # You should comment this line if your using macos
+#command = /bin/zsh # You should umcomment this line if you using macos
+
+# Don't like open new window at the same path
+window-inherit-working-directory = false
+
+## Settings
+shell-integration = zsh
+# Auto setup of ssh for ssh who don't reconized x-term-ghosttty, awsome :)
+shell-integration-features = ssh-env,ssh-terminfo
+
+## Keybinds
+# See all: ghostty +list-keybinds reload_config: ctrl + shift + ,
+
+keybind = ctrl+shift+enter=toggle_split_zoom
+keybind = ctrl+enter=ignore
+
+# Fix escape caracter print
+keybind = shift+enter=text:\n
+
+# Customs shaders (Fancy cursor :) )
+custom-shader = shaders/cursor_warp.glsl
+custom-shader = shaders/ripple_rectangle_cursor.glsl
+custom-shader-animation = always
+
+# Stop, no more close confirm window
+confirm-close-surface = false
