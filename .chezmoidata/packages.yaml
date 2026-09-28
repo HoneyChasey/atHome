@@ -1,0 +1,60 @@
+packages:
+  darwin:
+    brews:
+      - git
+      - helix
+      - curl
+      - cmake
+    casks:
+      - zen
+  arch:
+    pacman:
+      - nwg-displays
+      - flatpak
+      - bemenu-wayland
+      - ghostty
+      - alsa-utils
+      - unzip
+      - hyprpaper
+      - brightnessctl
+      - sof-firmware
+      - xdg-desktop-portal
+      - xdg-desktop-portal-gtk
+      - xdg-desktop-portal-hyprland
+      - hyprshot
+      - pipewire
+      - wireplumber
+      - hyprlock
+      - networkmanager
+      - wpa_supplicant
+      - noto-fonts
+      - noto-fonts-cjk
+      - noto-fonts-emoji
+      - ttf-jetbrains-mono-nerd
+      - wget
+      - pavucontrol
+      - zsh
+      - curl
+      - stow
+      - yazi
+      - swaync
+      - quickshell
+      - lazydocker
+      - bluetui
+      - gdu
+      - btop
+      - wikiman
+      - fastfetch
+      - caligula
+      - chafa
+      - steam
+      - snap-pac
+      - signal-desktop
+    flatpak:
+      - org.localsend.localsend_app
+      - com.discordapp.Discord
+      - app.zen_browser.zen
+      - obsidian.Obsidian
+      - com.heroicgameslauncher.hgl
+      - com.github.PintaProject.Pinta
+      - it.mijorus.gearlever

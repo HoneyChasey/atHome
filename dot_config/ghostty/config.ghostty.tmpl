@@ -3,8 +3,11 @@
 theme = Bluloco Dark
 
 # Force use zsh
-command = /usr/bin/zsh # You should comment this line if your using macos
-#command = /bin/zsh # You should umcomment this line if you using macos
+{{ if eq .chezmoi.os "darwin" -}}
+command = /bin/zsh
+{{- else if eq .chezmoi.os "linux" -}}
+command = /usr/bin/zsh
+{{- end }}
 
 # Don't like open new window at the same path
 window-inherit-working-directory = false
