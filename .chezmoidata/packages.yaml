@@ -5,6 +5,9 @@ packages:
       - helix
       - curl
       - cmake
+      - fzf
+      - jq
+      - lazygit
   arch:
     pacman:
       - nwg-displays
@@ -48,6 +51,9 @@ packages:
       - steam
       - snap-pac
       - signal-desktop
+      - fzf
+      - jq
+      - lazygit
     flatpak:
       - org.localsend.localsend_app
       - com.discordapp.Discord
