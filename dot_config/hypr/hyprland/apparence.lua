@@ -26,8 +26,8 @@ hl.config({
         rounding_power = 2,
         -- Frosted glass: blur only shows through transparent pixels, so windows keep
         -- a small amount of transparency, and a strong blur hides what's behind them.
-        active_opacity   = 0.82,
-        inactive_opacity = 0.75,
+        active_opacity   = 0.92,
+        inactive_opacity = 0.78,
         shadow = {
             enabled      = true,
             range        = 10,

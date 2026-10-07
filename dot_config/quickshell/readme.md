@@ -27,34 +27,39 @@ const entry = DesktopEntries.heuristicLookup(appId)   // find the .desktop file
 Quickshell.iconPath(entry.icon, true)                 // find the icon in the theme
 ```
 
-### Icon priority
+### No custom icons
 
-For each app, `Workspaces.qml` tries in order:
-
-1. a Nerd Font glyph from `glyphMap`
-2. a custom svg in `icons/<app_id>.svg`
-3. the app's own icon (desktop file + icon theme)
-4. a generic window icon `󰖯`
-
-So `glyphMap` and `icons/` are only overrides: use them when you want a different look,
-or for an app that has no icon.
+The bar only uses the system icons: there is no `icons/` folder or glyph list to maintain.
+If an app has no icon, it shows a generic window icon `󰖯`.
 
 ### When it fails
 
 Some apps send an app_id that doesn't match their `.desktop` file name (often Electron or old
-X11 apps). They show the generic window icon. To fix one:
+X11 apps). They show the generic window icon.
+
+Find the app_id:
 
 ```bash
-hyprctl clients | grep -i class    # find the app_id
+hyprctl clients | grep -i class
 ```
 
-then either add it to `glyphMap` in `Workspaces.qml`, or drop an svg named `<app_id>.svg` in `icons/`.
-
-To check if an app has an icon on the system:
+Check if the app has a desktop file and an icon on the system:
 
 ```bash
 grep '^Icon=' /usr/share/applications/<app_id>.desktop \
               /var/lib/flatpak/exports/share/applications/<app_id>.desktop 2>/dev/null
+```
+
+To fix it the standard way (no bar change), create `~/.local/share/applications/<app_id>.desktop`
+pointing to an existing icon name:
+
+```ini
+[Desktop Entry]
+Type=Application
+Name=My App
+Exec=myapp
+Icon=myapp
+NoDisplay=true
 ```
 
 ## Reloading

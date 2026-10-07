@@ -8,53 +8,36 @@ import Quickshell.Hyprland
 RowLayout {
     spacing: 4
 
-    // icon of one app: nerd glyph > custom svg in icons/ > desktop entry icon > generic window
+    // icon of one app, found by the freedesktop standards: app_id -> .desktop file -> icon theme
+    // falls back to a generic window glyph when the app has no icon
     component AppIcon: Item {
         id: icon
         required property string appId
         property color glyphColor: Theme.text
 
-        readonly property var glyphMap: ({ // use hyprctl clients | grep -i class to find the class
-            "discord": "󰙯",
-            "steam": "",
-            "org.mozilla.firefox": "",
-            "thunar": "",
-            "org.pwmt.zathura": "󱔘",
-            "nvim": "", // TODO fix this. How change the logo based on the window title
-            "com.moonlight_stream.Moonlight": ""
-        })
-        readonly property string glyph: glyphMap[appId] ?? ""
         readonly property string desktopIcon: {
+            // desktop entries load in the background after startup:
+            // reading the list makes this re-run once they are loaded
+            DesktopEntries.applications.values
             const entry = DesktopEntries.heuristicLookup(appId)
             return entry ? Quickshell.iconPath(entry.icon, true) : ""
         }
-        readonly property bool useGlyph: glyph !== ""
-        readonly property bool useCustom: !useGlyph && custom.status === Image.Ready
-        readonly property bool useDesktop: !useGlyph && !useCustom && desktopIcon !== ""
 
         implicitWidth: 16
         implicitHeight: 16
 
+        IconImage {
+            anchors.fill: parent
+            visible: icon.desktopIcon !== ""
+            source: icon.desktopIcon
+        }
         Text {
             anchors.centerIn: parent
-            visible: icon.useGlyph || (!icon.useCustom && !icon.useDesktop)
-            text: icon.useGlyph ? icon.glyph : "󰖯"
+            visible: icon.desktopIcon === ""
+            text: "󰖯"
             font.family: Theme.font
             font.pixelSize: 15
             color: icon.glyphColor
-        }
-        Image {
-            id: custom
-            anchors.fill: parent
-            visible: icon.useCustom
-            source: icon.useGlyph ? "" : "root:/icons/" + icon.appId + ".svg"
-            sourceSize.width: 16
-            sourceSize.height: 16
-        }
-        IconImage {
-            anchors.fill: parent
-            visible: icon.useDesktop
-            source: icon.useDesktop ? icon.desktopIcon : ""
         }
     }
 
