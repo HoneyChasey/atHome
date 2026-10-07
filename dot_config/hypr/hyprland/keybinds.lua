@@ -5,7 +5,7 @@ local mainMod = "SUPER"
 -- Apps
 hl.bind(mainMod .. " + A",           hl.dsp.exec_cmd(Terminal))
 hl.bind(mainMod .. " + E",           hl.dsp.exec_cmd(FileManager))
-hl.bind(mainMod .. " + R",           hl.dsp.exec_cmd(Menu))
+-- hl.bind(mainMod .. " + R",           hl.dsp.exec_cmd(Menu))
 hl.bind(mainMod .. " + B",           hl.dsp.exec_cmd(Browser))
 hl.bind(mainMod .. " + SHIFT + B",   hl.dsp.exec_cmd(Browser .. " --private-window"))
 
@@ -31,8 +31,8 @@ hl.bind("XF86AudioMute",          hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO
 hl.bind("XF86AudioMicMute",       hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"))
 
 -- Screen Brightness
-hl.bind("XF86MonBrightnessUp",    hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), {locked = true, repeating = true})
-hl.bind("XF86MonBrightnessDown",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), {locked = true, repeating = true})
+hl.bind("XF86MonBrightnessUp",    hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+ && qs ipc call osd brightness"), {locked = true, repeating = true})
+hl.bind("XF86MonBrightnessDown",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%- && qs ipc call osd brightness"), {locked = true, repeating = true})
 
 -- Playerctl
 hl.bind("XF86AudioNext",           hl.dsp.exec_cmd("playerctl next"), {locked = true })

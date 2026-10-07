@@ -24,8 +24,10 @@ hl.config({
     decoration = {
         rounding       = 8,
         rounding_power = 2,
-        active_opacity   = 1,
-        inactive_opacity = 0.78,
+        -- Frosted glass: blur only shows through transparent pixels, so windows keep
+        -- a small amount of transparency, and a strong blur hides what's behind them.
+        active_opacity   = 0.82,
+        inactive_opacity = 0.75,
         shadow = {
             enabled      = true,
             range        = 10,
@@ -33,10 +35,16 @@ hl.config({
             color        = "rgba(1a1a1aee)",
         },
         blur = {
-            enabled   = true,
-            size      = 2,
-            passes    = 1,
-            vibrancy  = 0.1696,
+            enabled           = true,
+            size              = 6,     -- blur radius
+            passes            = 3,     -- more passes = smoother, less see-through
+            noise             = 0.02,  -- light grain, frosted glass texture
+            contrast          = 0.9,
+            brightness        = 0.9,   -- darker so text stays readable
+            vibrancy          = 0.3,
+            new_optimizations = true,
+            xray              = false, -- blur the windows behind, not only the wallpaper
+            popups            = true,  -- blur menus and popups too
         },
     },
 

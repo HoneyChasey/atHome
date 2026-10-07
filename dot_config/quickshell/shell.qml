@@ -6,4 +6,5 @@ ShellRoot {
         model: Quickshell.screens
         Bar { }
     }
+    Osd { }   // volume / brightness popup
 }

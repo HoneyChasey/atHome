@@ -1,0 +1,21 @@
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") -}}
+#!/bin/bash
+# Re-runs every time packages.yaml (arch part) changes
+set -e
+
+# ---- pacman packages ----
+sudo pacman -S --needed --noconfirm
+{{- range .packages.arch.pacman }} {{ . | quote }}{{ end }}
+
+# ---- services (mask first, so conflicting daemons are off before enabling) ----
+{{ range .packages.arch.services.mask -}}
+sudo systemctl mask {{ . | quote }}
+{{ end -}}
+{{ range .packages.arch.services.enable -}}
+sudo systemctl enable --now {{ . | quote }}
+{{ end }}
+# ---- flatpak apps ----
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install -y --noninteractive flathub
+{{- range .packages.arch.flatpak }} {{ . | quote }}{{ end }}
+{{ end -}}

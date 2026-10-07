@@ -1,8 +1,9 @@
 // Arch logo widget
 import QtQuick
+
 Text {
-    font.family: "CaskaydiaCove Nerd Font"
-    font.pixelSize: 18
-    color: "#89b4fa"
+    font.family: Theme.font
+    font.pixelSize: 17
+    color: Theme.accent
     text: "󰣇"
 }

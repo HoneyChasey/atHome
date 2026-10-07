@@ -1,116 +1,83 @@
-// Monitoring your system information widget
-// CPU / RAM / Battery in one framed pill
+// Monitoring your system information widget: CPU / RAM / Battery
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Io
 
-Rectangle {
+RowLayout {
     id: root
+    spacing: 12
+
     property int cpuPct: 0
     property int ramPct: 0
-    property int battPct: 0
+    property int battPct: -1          // -1 = no battery (tower)
     property string battStatus: "Unknown"
 
     property real prevIdle: 0
     property real prevTotal: 0
 
-    implicitWidth: row.implicitWidth + 16
-    implicitHeight: 22
-    radius: 4
-    color: "#313244"
-
     // ---- battery icon: charging bolt, else fill level ----
     function battIcon(p) {
-        if (root.battStatus === "Charging") return "󰂄"   // charging bolt
-        if (root.battStatus === "Full")     return "󰂅"   // plugged in & full
-        if (p >= 80) return "󰁹"      // full
-        if (p >= 60) return "󰂁"      // almost full
-        if (p >= 45) return "󰁿"      // mid
-        if (p >= 20) return "󰁽"      // low
-        return "󰁺"                    // empty
+        if (battStatus === "Charging") return "󰂄"
+        if (battStatus === "Full")     return "󰂅"
+        if (p >= 80) return "󰁹"
+        if (p >= 60) return "󰂁"
+        if (p >= 45) return "󰁿"
+        if (p >= 20) return "󰁽"
+        return "󰁺"
     }
 
-    RowLayout {
-        id: row
-        anchors.centerIn: parent
-        spacing: 10
-
-        Text {
-            font.pixelSize: 14
-            color: "#cdd6f4"
-            text: "   " + root.cpuPct + "%"        // cpu glyph
-        }
-        Text {
-            font.pixelSize: 14
-            color: "#cdd6f4"
-            text: "   " + root.ramPct + "%"        // memory glyph
-        }
-        Text {
-            font.family: "CaskaydiaCove Nerd Font"
-            font.pixelSize: 14
-            color: "#cdd6f4"
-            text: root.battIcon(root.battPct) + "  " + root.battPct + "%"
-        }
+    component Stat: Text {
+        font.family: Theme.font
+        font.pixelSize: Theme.fontSize
+        color: Theme.text
     }
 
-    // ---- CPU: sample /proc/stat, compare to previous ----
+    Stat { text: "󰻠  " + root.cpuPct + "%" }
+    Stat { text: "󰍛  " + root.ramPct + "%" }
+    Stat {
+        visible: root.battPct >= 0
+        color: root.battPct < 20 && root.battStatus !== "Charging" ? Theme.red : Theme.text
+        text: root.battIcon(root.battPct) + "  " + root.battPct + "%"
+    }
+
+    // ---- one sample of cpu (/proc/stat), ram (free) and the first BAT* found ----
     Process {
-        id: cpuProc
-        command: ["sh", "-c", "head -n1 /proc/stat"]
+        id: statProc
+        command: ["sh", "-c", `
+            head -n1 /proc/stat
+            free | awk '/Mem:/ {print "mem", int($3/$2*100)}'
+            b=$(ls -d /sys/class/power_supply/BAT* 2>/dev/null | head -n1)
+            [ -n "$b" ] && echo "bat $(cat "$b/capacity") $(cat "$b/status")"
+        `]
         running: true
         stdout: StdioCollector {
             onStreamFinished: {
-                const p = text.trim().split(/\s+/).slice(1).map(Number)
-                const idle = p[3] + p[4]
-                const total = p.reduce((a, b) => a + b, 0)
-                const dIdle = idle - root.prevIdle
-                const dTotal = total - root.prevTotal
-                if (dTotal > 0 && root.prevTotal > 0)
-                    root.cpuPct = Math.round((1 - dIdle / dTotal) * 100)
-                root.prevIdle = idle
-                root.prevTotal = total
+                for (const line of text.trim().split("\n")) {
+                    const f = line.trim().split(/\s+/)
+                    if (f[0] === "cpu") {
+                        // compare to previous sample
+                        const p = f.slice(1).map(Number)
+                        const idle = p[3] + p[4]
+                        const total = p.reduce((a, b) => a + b, 0)
+                        const dTotal = total - root.prevTotal
+                        if (dTotal > 0 && root.prevTotal > 0)
+                            root.cpuPct = Math.round((1 - (idle - root.prevIdle) / dTotal) * 100)
+                        root.prevIdle = idle
+                        root.prevTotal = total
+                    } else if (f[0] === "mem") {
+                        root.ramPct = parseInt(f[1]) || 0
+                    } else if (f[0] === "bat") {
+                        root.battPct = parseInt(f[1]) || 0
+                        root.battStatus = f.slice(2).join(" ") || "Unknown"
+                    }
+                }
             }
-        }
-    }
-
-    // ---- RAM: used/total from free ----
-    Process {
-        id: ramProc
-        command: ["sh", "-c", "free | awk '/Mem:/ {printf \"%d\", $3/$2*100}'"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: root.ramPct = parseInt(text.trim()) || 0
-        }
-    }
-
-    // ---- Battery capacity: auto-detect any BAT* ----
-    Process {
-        id: battProc // change your battery here if your are on tower
-        command: ["sh", "-c", "cat /sys/class/power_supply/BAT1/capacity 2>/dev/null | head -n1"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: root.battPct = parseInt(text.trim()) || 0
-        }
-    }
-
-    // ---- Battery status (Charging / Discharging / Full): auto-detect any BAT* ----
-    Process {
-        id: battStatProc
-        command: ["sh", "-c", "cat /sys/class/power_supply/BAT1/status 2>/dev/null | head -n1"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: root.battStatus = text.trim() || "Unknown"
         }
     }
 
     // ---- refresh everything every 2s ----
     Timer {
         interval: 2000; repeat: true; running: true
-        onTriggered: {
-            cpuProc.running = true
-            ramProc.running = true
-            battProc.running = true
-            battStatProc.running = true
-        }
+        onTriggered: statProc.running = true
     }
 }

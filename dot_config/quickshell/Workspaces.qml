@@ -1,14 +1,68 @@
-// Workspace indicators widget
+// Workspace indicators widget: one rounded square per workspace, with the icons of its open apps
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Widgets
 import Quickshell.Hyprland
 
 RowLayout {
     spacing: 4
+
+    // icon of one app: nerd glyph > custom svg in icons/ > desktop entry icon > generic window
+    component AppIcon: Item {
+        id: icon
+        required property string appId
+        property color glyphColor: Theme.text
+
+        readonly property var glyphMap: ({ // use hyprctl clients | grep -i class to find the class
+            "discord": "󰙯",
+            "steam": "",
+            "org.mozilla.firefox": "",
+            "thunar": "",
+            "org.pwmt.zathura": "󱔘",
+            "nvim": "", // TODO fix this. How change the logo based on the window title
+            "com.moonlight_stream.Moonlight": ""
+        })
+        readonly property string glyph: glyphMap[appId] ?? ""
+        readonly property string desktopIcon: {
+            const entry = DesktopEntries.heuristicLookup(appId)
+            return entry ? Quickshell.iconPath(entry.icon, true) : ""
+        }
+        readonly property bool useGlyph: glyph !== ""
+        readonly property bool useCustom: !useGlyph && custom.status === Image.Ready
+        readonly property bool useDesktop: !useGlyph && !useCustom && desktopIcon !== ""
+
+        implicitWidth: 16
+        implicitHeight: 16
+
+        Text {
+            anchors.centerIn: parent
+            visible: icon.useGlyph || (!icon.useCustom && !icon.useDesktop)
+            text: icon.useGlyph ? icon.glyph : "󰖯"
+            font.family: Theme.font
+            font.pixelSize: 15
+            color: icon.glyphColor
+        }
+        Image {
+            id: custom
+            anchors.fill: parent
+            visible: icon.useCustom
+            source: icon.useGlyph ? "" : "root:/icons/" + icon.appId + ".svg"
+            sourceSize.width: 16
+            sourceSize.height: 16
+        }
+        IconImage {
+            anchors.fill: parent
+            visible: icon.useDesktop
+            source: icon.useDesktop ? icon.desktopIcon : ""
+        }
+    }
+
     Repeater {
         model: Hyprland.workspaces
 
         Rectangle {
+            id: ws
             required property var modelData
 
             // windows on THIS workspace
@@ -27,67 +81,44 @@ RowLayout {
                 return out
             }
 
-            implicitWidth: row.implicitWidth + 12
+            visible: modelData.id > 0       // hide special workspaces
+            implicitWidth: row.implicitWidth + 14
             implicitHeight: 22
-            radius: 4
-            color: modelData.focused ? "#89b4fa" : "#313244"
+            radius: 7
+            color: modelData.focused ? Theme.accent
+                 : hover.containsMouse ? Theme.surface
+                 : Qt.rgba(Theme.surface.r, Theme.surface.g, Theme.surface.b, 0.55)
+            Behavior on color { ColorAnimation { duration: 150 } }
 
             RowLayout {
                 id: row
                 anchors.centerIn: parent
-                spacing: 4
+                spacing: 5
 
                 Text {
-                    text: modelData.id
-                    color: modelData.focused ? "#1e1e2e" : "#cdd6f4"
+                    text: ws.modelData.id
+                    font.family: Theme.font
+                    font.pixelSize: 12
+                    font.bold: ws.modelData.focused
+                    color: ws.modelData.focused ? Theme.bg : Theme.text
                 }
 
                 Repeater {
-                    model: apps
-
-                    Item {
-                        required property var modelData
-                        property string appId: modelData
-
-                        property var glyphMap: ({ // use hyprctl clients | grep -i class to find the class
-                            "discord": "󰙯",
-                            "steam": "",
-                            "org.mozilla.firefox": "",
-                            "thunar": "",
-                            "org.pwmt.zathura": "󱔘",
-                            "nvim": "", // TODO fix this. How change the logo based on the window title
-                            "com.moonlight_stream.Moonlight": ""
-
-                        })
-                        property string glyph: glyphMap[appId] ?? ""
-                        property string svgPath: "root:/icons/" + appId + ".svg"
-
-                        implicitWidth: 18
-                        implicitHeight: 18
-
-                        Text {
-                            anchors.centerIn: parent
-                            visible: glyph !== ""
-                            text: glyph
-                            font.family: "CaskaydiaCove Nerd Font"
-                            font.pixelSize: 16
-                            color: "#cdd6f4"
-                        }
-
-                        Image {
-                            anchors.centerIn: parent
-                            visible: glyph === "" && status === Image.Ready
-                            source: glyph === "" ? svgPath : ""
-                            sourceSize.width: 16
-                            sourceSize.height: 16
-                        }
+                    model: ws.apps
+                    AppIcon {
+                        required property string modelData
+                        appId: modelData
+                        glyphColor: ws.modelData.focused ? Theme.bg : Theme.text
                     }
                 }
             }
 
             MouseArea {
+                id: hover
                 anchors.fill: parent
-                onClicked: Hyprland.dispatch("workspace " + modelData.id)
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: ws.modelData.activate()
             }
         }
     }

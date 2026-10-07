@@ -12,7 +12,6 @@ packages:
     pacman:
       - nwg-displays
       - flatpak
-      - bemenu-wayland
       - ghostty
       - alsa-utils
       - unzip
@@ -54,11 +53,20 @@ packages:
       - fzf
       - jq
       - lazygit
+      - tlp
+    services:
+      enable:
+        - tlp.service
+        - NetworkManager.service
+      mask:
+        - power-profiles-daemon.service
+        - systemd-rfkill.service
+        - systemd-rfkill.socket
     flatpak:
       - org.localsend.localsend_app
       - com.discordapp.Discord
       - app.zen_browser.zen
-      - obsidian.Obsidian
+      - md.obsidian.Obsidian
       - com.heroicgameslauncher.hgl
       - com.github.PintaProject.Pinta
       - it.mijorus.gearlever

@@ -1,57 +1,58 @@
 // Bar composing
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
-import Quickshell.Hyprland
+
 PanelWindow {
+    id: bar
     required property var modelData
     screen: modelData
     anchors { top: true; left: true; right: true }
-    implicitHeight: 40
+    implicitHeight: 42
     color: "transparent"          // wallpaper shows through the bar
-    // ---- left island baby ----
-    Rectangle {
-        anchors.left: parent.left
-        anchors.leftMargin: 8
+
+    // rounded pill holding a row of widgets
+    component Island: Rectangle {
+        default property alias content: row.data
         anchors.verticalCenter: parent.verticalCenter
-        implicitWidth: leftRow.implicitWidth + 16
-        implicitHeight: leftRow.implicitHeight + 12
-        radius: 8
-        color: "#1e1e2e"
-        Row {
-            id: leftRow
-            anchors.centerIn: parent
-            spacing: 10
-            Logo { anchors.verticalCenter: parent.verticalCenter }
-            Workspaces { anchors.verticalCenter: parent.verticalCenter }
-        }
-    }
-    // ---- center clock island baby----
-    Rectangle {
-        anchors.centerIn: parent
-        implicitWidth: clock.implicitWidth + 24
-        implicitHeight: 26
-        radius: 8
-        color: "#1e1e2e"
-        Clock {
-            id: clock
-            anchors.centerIn: parent
-        }
-    }
-    // ---- right island baby ---
-    Rectangle {
-        anchors.right: parent.right
-        anchors.rightMargin: 8
-        anchors.verticalCenter: parent.verticalCenter
-        implicitWidth: rightRow.implicitWidth + 16
-        implicitHeight: rightRow.implicitHeight + 12
-        radius: 8
-        color: "#1e1e2e"
-        Row {
-            id: rightRow
+        implicitWidth: row.implicitWidth + 24
+        implicitHeight: Theme.islandHeight
+        radius: height / 2
+        color: Theme.bg
+        border.width: 1
+        border.color: Theme.surface
+        RowLayout {
+            id: row
             anchors.centerIn: parent
             spacing: 12
-            Network { anchors.verticalCenter: parent.verticalCenter }
-            System { anchors.verticalCenter: parent.verticalCenter }
         }
+    }
+
+    // thin vertical line between groups
+    component Separator: Rectangle {
+        implicitWidth: 1
+        implicitHeight: 14
+        color: Theme.surface
+    }
+
+    // ---- left island: logo, workspaces, date & time ----
+    Island {
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+        Logo {}
+        Workspaces {}
+        Separator {}
+        Clock {}
+    }
+
+    // ---- right island: network, vpn, system, background apps ----
+    Island {
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+        Network {}
+        Separator {}
+        System {}
+        Separator { visible: tray.visible }
+        Tray { id: tray; barWindow: bar }
     }
 }
