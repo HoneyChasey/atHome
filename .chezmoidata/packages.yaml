@@ -8,6 +8,7 @@ packages:
       - fzf
       - jq
       - lazygit
+      - tldr
   arch:
     pacman:
       - nwg-displays
@@ -54,6 +55,7 @@ packages:
       - jq
       - lazygit
       - tlp
+      - tldr
     services:
       enable:
         - tlp.service
