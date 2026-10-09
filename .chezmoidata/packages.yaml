@@ -54,6 +54,7 @@ packages:
       - jq
       - lazygit
       - tlp
+      - nm-connection-editor
     services:
       enable:
         - tlp.service
