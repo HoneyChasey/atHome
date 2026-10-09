@@ -22,6 +22,7 @@ packages:
       - xdg-desktop-portal
       - xdg-desktop-portal-gtk
       - xdg-desktop-portal-hyprland
+      - hyprland
       - hyprshot
       - pipewire
       - wireplumber

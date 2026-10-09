@@ -1,0 +1,9 @@
+{{ if or (eq .chezmoi.os "linux") -}}
+#!/bin/bash
+# Runs once per machine (chezmoi tracks it); skipped if vicinae is already installed
+set -e
+
+if ! command -v vicinae >/dev/null 2>&1; then
+  curl -fsSL https://vicinae.com/install | bash
+fi
+{{ end -}}
