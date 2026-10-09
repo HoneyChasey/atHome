@@ -13,6 +13,10 @@ hl.bind(mainMod .. " + SHIFT + B",   hl.dsp.exec_cmd(Browser .. " --private-wind
 hl.bind(mainMod .. " + M",           hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"))
 hl.bind(mainMod .. " + L",           hl.dsp.exec_cmd("hyprlock"))
 
+-- Control center (quickshell bar)
+hl.bind(mainMod .. " + N",           hl.dsp.exec_cmd("qs ipc call controlcenter toggle"))
+hl.bind(mainMod .. " + SHIFT + T",   hl.dsp.exec_cmd("qs ipc call theme toggle")) -- dark / light mode
+
 -- Window
 hl.bind(mainMod .. " + J",           hl.dsp.layout("togglesplit")) -- Dwindle
 hl.bind(mainMod .. " + V",           hl.dsp.window.float({ action = "toggle" }))

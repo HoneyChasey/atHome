@@ -20,6 +20,7 @@ Scope {
     readonly property var sink: Pipewire.defaultAudioSink
 
     function show() {
+        if (ControlCenter.open) return   // the control center already shows the sliders
         shown = true
         hideTimer.restart()
     }

@@ -54,5 +54,19 @@ PanelWindow {
         System {}
         Separator { visible: tray.visible }
         Tray { id: tray; barWindow: bar }
+        Separator {}
+        // control center button
+        Text {
+            font.family: Theme.font
+            font.pixelSize: 15
+            color: ControlCenter.open ? Theme.accent : Theme.text
+            text: "󰔡"
+            MouseArea {
+                anchors.fill: parent
+                anchors.margins: -4
+                cursorShape: Qt.PointingHandCursor
+                onClicked: ControlCenter.toggle(bar)
+            }
+        }
     }
 }

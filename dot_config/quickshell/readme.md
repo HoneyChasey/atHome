@@ -62,6 +62,21 @@ Icon=myapp
 NoDisplay=true
 ```
 
+## Control center
+
+The `󰔡` icon at the right of the bar (or `SUPER + N`) opens a macOS-like control center:
+Wi-Fi, Bluetooth, Do Not Disturb (swaync), dark / light mode, screenshot, lock, brightness,
+volume and the media playing. Clicking the Wi-Fi / Bluetooth text opens `nmtui` / `bluetui`.
+
+### Dark / light mode
+
+The switch (or `SUPER + SHIFT + T`, or `qs ipc call theme toggle`) sets
+`org.gnome.desktop.interface color-scheme` and `gtk-theme` with `gsettings`:
+
+- the bar and the control center change colors (`Theme.qml`)
+- GTK / libadwaita apps follow, and the xdg portal tells browsers, electron apps and flatpaks
+- ghostty switches with `theme = light:...,dark:...`
+
 ## Reloading
 
 Quickshell doesn't always hot-reload after `chezmoi apply`. If a change doesn't show up:
