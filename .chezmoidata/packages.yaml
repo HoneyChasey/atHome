@@ -58,6 +58,7 @@ packages:
       - tlp
       - nm-connection-editor
       - tldr
+      - usbmuxd
     services:
       enable:
         - tlp.service
