@@ -20,5 +20,5 @@ require("lazy").setup({
     { import = "themes" }, -- loads every themes
   },
   install = { colorscheme = { "habamax" } },
-  checker = { enabled = true },
+  checker = { enabled = false }, -- fuck update notification
 })

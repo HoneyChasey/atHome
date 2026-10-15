@@ -22,6 +22,8 @@ map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file" })
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number" })
 map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
 
+map("n", "x", "V", {desc = "Select all line"})
+
 -- REMOVED: <leader>ch NvCheatsheet (was NvChad UI only)
 -- which-key already covers "show all keymaps" via <leader>wK below
 
@@ -56,7 +58,7 @@ map("n", "<leader>e", "<cmd>Oil<CR>", { desc = "open oil (file explorer)" })
 map("n", "<leader>tr", "<cmd>Neotree<CR>", {desc = "Open neotree (tree file explorer)"})
 
 -- telescope
-map("n", "<leader>fw", function() -- telescope live grep with dotfiles
+map("n", "<leader>/", function() -- telescope live grep with dotfiles
   require("telescope.builtin").live_grep({
     additional_args = function()
       return { "--hidden" }
@@ -72,7 +74,7 @@ map("n", "<leader>ff", function() -- telescope find file with dotfiles
   })
 end, { desc = "telescope find files (with hidden)" })
 
-map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
+map("n", "<leader>b", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
 map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find oldfiles" })
@@ -87,7 +89,6 @@ map("n", "<leader>th", "<cmd>Telescope colorscheme<CR>", { desc = "telescope col
 
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
-
 
 -- new terminals (replaces nvchad.term, using toggleterm.nvim)
 map("n", "<leader>h", "<cmd>ToggleTerm direction=horizontal<CR>", { desc = "terminal new horizontal term" })

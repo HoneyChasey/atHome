@@ -13,7 +13,7 @@ require("configs.filetype")
 
 vim.opt.termguicolors = true -- Without this, color highlighting won't render correctly (or at all) in many terminals. Also is use and necessary for the plugin nvim-colorizer.lua
 
-vim.cmd.colorscheme("nordic") -- change here your default theme
+vim.cmd.colorscheme("onedark") -- change here your default theme
 
 vim.schedule(function()
   require "mappings"
