@@ -91,9 +91,9 @@ map("n", "<leader>th", "<cmd>Telescope colorscheme<CR>", { desc = "telescope col
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
 -- new terminals (replaces nvchad.term, using toggleterm.nvim)
-map("n", "<leader>h", "<cmd>ToggleTerm direction=horizontal<CR>", { desc = "terminal new horizontal term" })
+map("n", "<leader>h", "<cmd>botright new | resize 12 | terminal<CR>", { desc = "terminal new horizontal term" })
 
-map("n", "<leader>v", "<cmd>ToggleTerm direction=vertical<CR>", { desc = "terminal new vertical term" })
+map("n", "<leader>v", "<cmd>botright vnew | vertical resize 50 | terminal<CR>", { desc = "terminal new vertical term" })
 
 -- toggleable (toggleterm supports numbered term instances as unique ids)
 map({ "n", "t" }, "<A-v>", "<cmd>2ToggleTerm direction=vertical<CR>", { desc = "terminal toggleable vertical term" })
