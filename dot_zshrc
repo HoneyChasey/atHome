@@ -112,3 +112,5 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias hx="helix"
+alias vim="nvim"
+alias obsiVaults="cd ~/Documents/obsiVaults/"
