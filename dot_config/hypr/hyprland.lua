@@ -25,5 +25,11 @@ require("hyprland/rules") -- Window rules
 require("hyprland/permissions") -- Process permissions hardening (currently disabled)
 require("hyprland/autostart") -- Process launched at session start
 
+hl.config({
+    misc = {
+        disable_splash_rendering = true,
+        disable_hyprland_logo = true,  
+    },
+})
 -- Plugins 
 -- source = waybar/waybar.conf # waybar conf 
