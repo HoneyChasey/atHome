@@ -38,7 +38,7 @@ packages:
       - zsh
       - curl
       - stow
-      - yazi
+      - nautilus
       - swaync
       - quickshell
       - lazydocker
