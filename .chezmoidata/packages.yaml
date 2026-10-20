@@ -60,6 +60,7 @@ packages:
       - tldr
       - usbmuxd
       - nvim
+      - gopls
     services:
       enable:
         - tlp.service
