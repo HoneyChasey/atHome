@@ -2,7 +2,8 @@
 
 -- Repetition of code i know but cleanner to have file here (already implemented by Nvchad team)
 return {
-  'nvim-treesitter/nvim-treesitter',
-  lazy = false,
-  build = ':TSUpdate'
+  pack = {
+    { src = "nvim-treesitter/nvim-treesitter", data = { build = ":TSUpdate" } },
+  },
+  ensure_installed = { "svelte" }, -- parsers installed by :TSInstallAll
 }

@@ -3,4 +3,4 @@ README.md
 .oh-my-zsh/cache
 .oh-my-zsh/cache/**
 
-.config/nvim/lazy-lock.json
+.config/nvim/nvim-pack-lock.json

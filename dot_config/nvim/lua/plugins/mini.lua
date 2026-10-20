@@ -1,7 +1,6 @@
-return { 
-  'nvim-mini/mini.nvim', 
-  version = false, 
+return {
+  pack = { "nvim-mini/mini.nvim" },
   config = function()
     require("configs.mini")
-  end
+  end,
 }

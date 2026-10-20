@@ -1,6 +1,7 @@
 -- Formator plugin (indentation, spacing, line, lenght etc etc).
 return {
-    "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
+  pack = { "stevearc/conform.nvim" },
+  config = function()
+    require("conform").setup(require("configs.conform"))
+  end,
 }

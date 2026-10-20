@@ -1,7 +1,8 @@
 return {
-  "j-hui/fidget.nvim",
-  opts = {
-    -- options
-  },
+  pack = { "j-hui/fidget.nvim" },
+  config = function()
+    require("fidget").setup({
+      -- options
+    })
+  end,
 }
-

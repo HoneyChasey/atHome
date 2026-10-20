@@ -1,4 +1,3 @@
-return{ 
-  'nvim-mini/mini.indentscope', 
-  version = false,
+return {
+  pack = { "nvim-mini/mini.indentscope" },
 }

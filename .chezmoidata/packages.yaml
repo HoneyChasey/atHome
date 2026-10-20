@@ -61,6 +61,7 @@ packages:
       - usbmuxd
       - nvim
       - gopls
+      - lua-language-server
     services:
       enable:
         - tlp.service
