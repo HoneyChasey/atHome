@@ -1,1 +1,3 @@
-return { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 }
+return {
+  pack = { { src = "bluz71/vim-nightfly-colors", name = "nightfly" } },
+}

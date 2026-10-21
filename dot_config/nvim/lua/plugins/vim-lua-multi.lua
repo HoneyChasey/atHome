@@ -1,7 +1,7 @@
 return {
-  "mg979/vim-visual-multi",
-  branch = "master",
-  event = "VeryLazy",
+  pack = {
+    { src = "mg979/vim-visual-multi", version = "master" },
+  },
 }
 
 -- [[

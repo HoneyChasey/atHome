@@ -1,6 +1,3 @@
 return {
-  "dracula/vim",
-  name = "dracula",
-  lazy = false,
-  priority = 1000
+  pack = { { src = "dracula/vim", name = "dracula" } },
 }

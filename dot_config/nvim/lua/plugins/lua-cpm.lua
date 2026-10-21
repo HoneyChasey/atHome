@@ -1,12 +1,11 @@
 -- Autocompletion engine with LSP, buffer, and path sources
 return {
-  'hrsh7th/nvim-cmp',
-  event = 'InsertEnter',
-  dependencies = {
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'onsails/lspkind.nvim',
+  pack = {
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "onsails/lspkind.nvim",
   },
   config = function()
     local cmp = require('cmp')
@@ -49,5 +48,5 @@ return {
     })
 
     vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
-  end
+  end,
 }

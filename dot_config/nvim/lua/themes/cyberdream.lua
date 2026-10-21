@@ -1,5 +1,3 @@
 return {
-  "scottmckendry/cyberdream.nvim",
-  lazy = false,
-  priority = 1000,
+  pack = { "scottmckendry/cyberdream.nvim" },
 }

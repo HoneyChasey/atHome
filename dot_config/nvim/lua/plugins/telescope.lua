@@ -1,9 +1,9 @@
 -- Fuzzy finder for files, text, buffers, and more
 return {
-    'nvim-telescope/telescope.nvim', version = '*',
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-        -- optional but recommended
-        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    }
+  pack = {
+    { src = "nvim-telescope/telescope.nvim", version = vim.version.range("*") },
+    "nvim-lua/plenary.nvim",
+    -- optional but recommended
+    { src = "nvim-telescope/telescope-fzf-native.nvim", data = { build = "make" } },
+  },
 }

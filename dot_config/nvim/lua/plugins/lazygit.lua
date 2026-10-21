@@ -1,7 +1,7 @@
 -- Lazygit TUI integration inside neovim
-return{
-     "kdheepak/lazygit.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim"
-    }
+return {
+  pack = {
+    "kdheepak/lazygit.nvim",
+    "nvim-lua/plenary.nvim",
+  },
 }

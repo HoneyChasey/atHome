@@ -1,8 +1,4 @@
-return{
-    'AlexvZyl/nordic.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-        require('nordic').load()
-    end
+return {
+  pack = { "AlexvZyl/nordic.nvim" },
+  -- To make nordic the default theme: require("nordic").load()
 }
