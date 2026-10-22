@@ -3,10 +3,10 @@ import QtQuick
 import Quickshell
 
 Text {
-    font.family: Theme.font
+    font.family: Theme.uiFont
     font.pixelSize: Theme.fontSize
-    color: Theme.text
-    text: Qt.formatDateTime(clock.date, "ddd dd MMM   HH:mm")
+    color: Theme.barText
+    text: Qt.formatDateTime(clock.date, "ddd d MMM  HH:mm")
 
     SystemClock {
         id: clock

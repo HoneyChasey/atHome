@@ -28,3 +28,13 @@ hl.window_rule({
     move  = "20 monitor_h-120",
     float = true,
 })
+
+-- Quickshell top bar: no background like the macOS 27 menu bar, only the glass capsules
+-- are blurred (ignore_alpha skips the transparent bar and the text shadow)
+hl.layer_rule({
+    name         = "blur-quickshell-bar",
+    match        = { namespace = "^quickshell-bar$" },
+    blur         = true,
+    blur_popups  = true,
+    ignore_alpha = 0.15,
+})

@@ -13,7 +13,7 @@ RowLayout {
     component AppIcon: Item {
         id: icon
         required property string appId
-        property color glyphColor: Theme.text
+        property color glyphColor: Theme.barText
 
         readonly property string desktopIcon: {
             // desktop entries load in the background after startup:
@@ -67,10 +67,12 @@ RowLayout {
             visible: modelData.id > 0       // hide special workspaces
             implicitWidth: row.implicitWidth + 14
             implicitHeight: 22
-            radius: 7
-            color: modelData.focused ? Theme.accent
-                 : hover.containsMouse ? Theme.surface
-                 : Qt.rgba(Theme.surface.r, Theme.surface.g, Theme.surface.b, 0.55)
+            radius: height / 2                      // liquid glass capsule
+            color: modelData.focused ? Theme.barCapsule
+                 : hover.containsMouse ? Qt.rgba(Theme.barCapsule.r, Theme.barCapsule.g, Theme.barCapsule.b, 0.5)
+                 : "transparent"
+            border.width: modelData.focused ? 1 : 0
+            border.color: Theme.glassEdge
             Behavior on color { ColorAnimation { duration: 150 } }
 
             RowLayout {
@@ -80,10 +82,10 @@ RowLayout {
 
                 Text {
                     text: ws.modelData.id
-                    font.family: Theme.font
+                    font.family: Theme.uiFont
                     font.pixelSize: 12
                     font.bold: ws.modelData.focused
-                    color: ws.modelData.focused ? Theme.bg : Theme.text
+                    color: ws.modelData.focused ? Theme.barText : Theme.barSubtext
                 }
 
                 Repeater {
@@ -91,7 +93,7 @@ RowLayout {
                     AppIcon {
                         required property string modelData
                         appId: modelData
-                        glyphColor: ws.modelData.focused ? Theme.bg : Theme.text
+                        glyphColor: Theme.barText
                     }
                 }
             }

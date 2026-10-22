@@ -27,16 +27,16 @@ RowLayout {
     }
 
     component Stat: Text {
-        font.family: Theme.font
+        font.family: Theme.uiFont
         font.pixelSize: Theme.fontSize
-        color: Theme.text
+        color: Theme.barText
     }
 
     Stat { text: "󰻠  " + root.cpuPct + "%" }
     Stat { text: "󰍛  " + root.ramPct + "%" }
     Stat {
         visible: root.battPct >= 0
-        color: root.battPct < 20 && root.battStatus !== "Charging" ? Theme.red : Theme.text
+        color: root.battPct < 20 && root.battStatus !== "Charging" ? Theme.barRed : Theme.barText
         text: root.battIcon(root.battPct) + "  " + root.battPct + "%"
     }
 

@@ -1,3 +1,4 @@
+//@ pragma NativeTextRendering
 // Entry point of configuration
 import QtQuick
 import Quickshell

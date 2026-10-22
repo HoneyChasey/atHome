@@ -1,5 +1,16 @@
 # Quickshell bar
 
+## Style
+
+The top bar follows the macOS 27 menu bar: no background, the text sits on the wallpaper
+with a faint shadow, and only the focused workspace gets a liquid glass capsule.
+Like on macOS, the text is black or white depending on the wallpaper: `Bar.qml` asks
+hyprpaper for the active wallpaper (`hyprctl hyprpaper listactive`) and measures the
+brightness of its top strip. With another wallpaper tool the text stays white.
+
+The capsules are blurred by the layer rule in `hypr/hyprland/rules.lua`, and the colors
+are in `Theme.qml`.
+
 ## App icons in the workspaces
 
 You don't need to add icons one by one: the bar finds the icon of each app automatically,
