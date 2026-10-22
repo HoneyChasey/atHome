@@ -20,7 +20,26 @@ Singleton {
     readonly property color green:   dark ? "#a6e3a1" : "#2f7d32"
     readonly property color red:     dark ? "#f38ba8" : "#b4233f"
 
+    // macOS-like frosted glass (top bar capsules and dock): very transparent, the blur comes
+    // from the hyprland layer rules in hypr/hyprland/rules.lua
+    readonly property color glass:       dark ? Qt.rgba(1, 1, 1, 0.10) : Qt.rgba(1, 1, 1, 0.28)
+    readonly property color glassBorder: dark ? Qt.rgba(1, 1, 1, 0.20) : Qt.rgba(1, 1, 1, 0.55)
+    readonly property color glassHover:  dark ? Qt.rgba(1, 1, 1, 0.22) : Qt.rgba(0, 0, 0, 0.10)
+    readonly property color glassEdge:   dark ? Qt.rgba(1, 1, 1, 0.35) : Qt.rgba(1, 1, 1, 0.8)   // liquid glass rim
+    readonly property color glassText:   dark ? "#f5f5f7" : "#1d1d1f"
+    readonly property color glassSubtext: dark ? Qt.rgba(1, 1, 1, 0.55) : Qt.rgba(0, 0, 0, 0.5)
+
+    // top bar: no background, so like macOS the text is black or white depending on the
+    // wallpaper behind it (measured by Bar.qml)
+    property bool wallpaperLight: false
+    readonly property color barText:    wallpaperLight ? "#1d1d1f" : "#f5f5f7"
+    readonly property color barSubtext: wallpaperLight ? Qt.rgba(0, 0, 0, 0.45) : Qt.rgba(1, 1, 1, 0.55)
+    readonly property color barGreen:   wallpaperLight ? "#1f7a2e" : "#a6e3a1"
+    readonly property color barRed:     wallpaperLight ? "#c4213f" : "#f38ba8"
+    readonly property color barCapsule: wallpaperLight ? Qt.rgba(1, 1, 1, 0.45) : Qt.rgba(1, 1, 1, 0.22)
+
     readonly property string font:   "JetBrainsMono Nerd Font"
+    readonly property string uiFont: "Adwaita Sans"     // closest to SF Pro; icons fall back to the nerd font
     readonly property int fontSize:  13
     readonly property int islandHeight: 30
 

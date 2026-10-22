@@ -9,7 +9,7 @@
 hl.config({
     general = {
         gaps_in          = 5,
-        gaps_out         = 20,
+        gaps_out         = { top = 6, right = 20, bottom = 20, left = 20 }, -- small top gap: the bar has no background
         border_size      = 1,
         col = {
             active_border   = "rgba(C4B5FDcc)",

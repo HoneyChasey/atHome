@@ -4,6 +4,6 @@ import QtQuick
 Text {
     font.family: Theme.font
     font.pixelSize: 17
-    color: Theme.accent
+    color: Theme.barText
     text: "󰣇"
 }

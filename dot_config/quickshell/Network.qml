@@ -26,9 +26,9 @@ RowLayout {
     Text {
         Layout.maximumWidth: 160
         elide: Text.ElideRight
-        font.family: Theme.font
+        font.family: Theme.uiFont
         font.pixelSize: Theme.fontSize
-        color: root.kind === "off" ? Theme.subtext : Theme.text
+        color: root.kind === "off" ? Theme.barSubtext : Theme.barText
         text: root.netIcon() + "  " + (root.kind === "wifi" ? root.ssid
                                      : root.kind === "eth" ? "Ethernet" : "Offline")
         MouseArea {
@@ -42,9 +42,9 @@ RowLayout {
     Text {
         Layout.maximumWidth: 140
         elide: Text.ElideRight
-        font.family: Theme.font
+        font.family: Theme.uiFont
         font.pixelSize: Theme.fontSize
-        color: root.vpn !== "" ? Theme.green : Theme.subtext
+        color: root.vpn !== "" ? Theme.barGreen : Theme.barSubtext
         text: "󰦝  " + (root.vpn !== "" ? root.vpn : "VPN off")
         Behavior on color { ColorAnimation { duration: 200 } }
     }
