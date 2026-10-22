@@ -29,16 +29,6 @@ hl.window_rule({
     float = true,
 })
 
--- Quickshell dock: frosted glass like macOS
--- ignore_alpha: only blur behind the dock itself, not its transparent surroundings
-hl.layer_rule({
-    name         = "blur-quickshell-dock",
-    match        = { namespace = "^quickshell-dock$" },
-    blur         = true,
-    blur_popups  = true,
-    ignore_alpha = 0.05,
-})
-
 -- Quickshell top bar: no background like the macOS 27 menu bar, only the glass capsules
 -- are blurred (ignore_alpha skips the transparent bar and the text shadow)
 hl.layer_rule({

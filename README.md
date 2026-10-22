@@ -10,7 +10,7 @@ They target **Arch Linux** (Hyprland desktop) first, and include a small setup f
 | Tool | Path | Notes |
 | --- | --- | --- |
 | [Hyprland](https://hypr.land/) | `~/.config/hypr` | Lua config split into modules (keybinds, rules, autostart…), plus hyprlock, hyprpaper and hyprlauncher |
-| [Quickshell](https://quickshell.org/) | `~/.config/quickshell` | Custom status bar: workspaces with app icons, clock, network, system stats, tray and a volume/brightness OSD, plus a macOS-like dock |
+| [Quickshell](https://quickshell.org/) | `~/.config/quickshell` | Custom status bar: workspaces with app icons, clock, network, system stats, tray and a volume/brightness OSD |
 | [Ghostty](https://ghostty.org/) | `~/.config/ghostty` | Templated per OS, Bluloco Dark theme, custom cursor shaders |
 | [Neovim](https://neovim.io/) | `~/.config/nvim` | lazy.nvim setup with LSP, Treesitter, Telescope, Neo-tree, Oil, Lazygit and more; several themes (Nordic by default) |
 | [Helix](https://helix-editor.com/) | `~/.config/helix` | Catppuccin Mocha, `;` for command mode, `Ctrl+g` opens Lazygit |

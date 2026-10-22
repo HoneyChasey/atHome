@@ -20,14 +20,9 @@ Singleton {
     readonly property color green:   dark ? "#a6e3a1" : "#2f7d32"
     readonly property color red:     dark ? "#f38ba8" : "#b4233f"
 
-    // macOS-like frosted glass (top bar capsules and dock): very transparent, the blur comes
-    // from the hyprland layer rules in hypr/hyprland/rules.lua
-    readonly property color glass:       dark ? Qt.rgba(1, 1, 1, 0.10) : Qt.rgba(1, 1, 1, 0.28)
-    readonly property color glassBorder: dark ? Qt.rgba(1, 1, 1, 0.20) : Qt.rgba(1, 1, 1, 0.55)
-    readonly property color glassHover:  dark ? Qt.rgba(1, 1, 1, 0.22) : Qt.rgba(0, 0, 0, 0.10)
+    // macOS-like liquid glass capsules in the top bar, blurred by the hyprland layer rule
+    // in hypr/hyprland/rules.lua
     readonly property color glassEdge:   dark ? Qt.rgba(1, 1, 1, 0.35) : Qt.rgba(1, 1, 1, 0.8)   // liquid glass rim
-    readonly property color glassText:   dark ? "#f5f5f7" : "#1d1d1f"
-    readonly property color glassSubtext: dark ? Qt.rgba(1, 1, 1, 0.55) : Qt.rgba(0, 0, 0, 0.5)
 
     // top bar: no background, so like macOS the text is black or white depending on the
     // wallpaper behind it (measured by Bar.qml)

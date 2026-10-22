@@ -8,8 +8,8 @@ Like on macOS, the text is black or white depending on the wallpaper: `Bar.qml` 
 hyprpaper for the active wallpaper (`hyprctl hyprpaper listactive`) and measures the
 brightness of its top strip. With another wallpaper tool the text stays white.
 
-The dock is frosted glass. The blur of both comes from the layer rules in
-`hypr/hyprland/rules.lua`, and the glass colors are in `Theme.qml`.
+The capsules are blurred by the layer rule in `hypr/hyprland/rules.lua`, and the colors
+are in `Theme.qml`.
 
 ## App icons in the workspaces
 
@@ -87,27 +87,6 @@ The switch (or `SUPER + SHIFT + T`, or `qs ipc call theme toggle`) sets
 - the bar and the control center change colors (`Theme.qml`)
 - GTK / libadwaita apps follow, and the xdg portal tells browsers, electron apps and flatpaks
 - ghostty switches with `theme = light:...,dark:...`
-
-## Dock
-
-A macOS-like dock at the bottom of every screen (`Dock.qml`, apps in `DockApps.qml`):
-launcher (vicinae), pinned apps, open apps, and the trash.
-
-- **left click**: opens the app, or focuses its window (click again: next window of the app)
-- **middle click**: opens a new window
-- **right click**: menu with the app's windows, its actions (from the `.desktop` file),
-  *New Window*, *Keep in Dock* / *Remove from Dock* and *Quit*
-- a dot shows under open apps (accent color for the focused one), icons grow under the mouse
-  and bounce while an app is starting
-
-Pinned apps are saved in `~/.local/state/quickshell/by-shell/<id>/dock.json` (not in chezmoi,
-so pinning from the dock doesn't change the dotfiles). The apps pinned at first start are
-`defaultPinned` in `DockApps.qml`. From a terminal, with the `.desktop` file name:
-
-```bash
-qs ipc call dock pin org.gnome.Nautilus
-qs ipc call dock unpin com.discordapp.Discord
-```
 
 ## Reloading
 
