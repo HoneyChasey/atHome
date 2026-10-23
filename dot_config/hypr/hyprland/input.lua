@@ -11,10 +11,11 @@ hl.config({
     kb_options = "",
     kb_rules = "",
     follow_mouse= 1,
-    sensitivity = 0, -- -1.0 - 1.0, M means no modifcation. 
+    sensitivity = 0.15, -- -1.0 - 1.0, 0 means no modification. Values outside the range are invalid.
+    accel_profile = "adaptive", -- slow moves stay precise, fast moves travel far (libinput default)
     touchpad = {
       natural_scroll = false,
-      scroll_factor = 0.6, -- libinput default (1.0) scrolls way too far per swipe
+      scroll_factor = 0.35, -- libinput default (1.0) scrolls way too far per swipe; ~0.35 feels close to macOS
       clickfinger_behavior = true, -- macOS-like: 2-finger click = right, 3-finger = middle
       tap_to_click = true,
       disable_while_typing = true,
@@ -37,16 +38,11 @@ hl.gesture({
   })
 
 
--- Per-device config 
+-- Per-device config
+-- For an external gaming mouse, flat (no accel) is usually more precise;
+-- keep touchpads on adaptive, flat makes small movements imprecise.
 -- hl.device({
 --   name = "epic-mouse-v1",
---   sensitivity = -0.5,
+--   accel_profile = "flat",
+--   sensitivity = 0,
 --   })
-
-hl.config{
-  input = { -- config global for all input device. 
-    sensitivity = 2.0,
-    accel_profile = "flat",
-    -- force_no_accel = true, -- use it if really you think there is mouse acceleration
-  }
-}
