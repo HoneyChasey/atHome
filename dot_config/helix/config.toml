@@ -24,6 +24,9 @@ C-g = [
     ":reload-all"
 ]
 
+[keys.normal.space]
+x = ":buffer-close"
+
 [keys.select]
 ";" = "command_mode"
 
