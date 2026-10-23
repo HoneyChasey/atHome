@@ -14,12 +14,22 @@ hl.config({
     sensitivity = 0, -- -1.0 - 1.0, M means no modifcation. 
     touchpad = {
       natural_scroll = false,
+      scroll_factor = 0.6, -- libinput default (1.0) scrolls way too far per swipe
+      clickfinger_behavior = true, -- macOS-like: 2-finger click = right, 3-finger = middle
+      tap_to_click = true,
+      disable_while_typing = true,
     },
+  },
+  gestures = {
+    workspace_swipe_distance = 400, -- longer travel = swipe follows the fingers more closely
+    workspace_swipe_cancel_ratio = 0.3, -- commit the switch after 30% of the distance
+    workspace_swipe_min_speed_to_force = 15, -- a quick flick switches, like macOS
+    workspace_swipe_direction_lock = true,
   },
   })
 
 
--- Gesture 
+-- Gesture
 hl.gesture({
   fingers = 3,
   direction = "horizontal",
