@@ -1,18 +1,20 @@
-theme="catppuccin_mocha"
+theme="tokyonight"
+
+[editor]
+bufferline = "always"
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
 
-
 [editor.lsp]
 display-messages = true
 display-inlay-hints = true
 
-
 [keys.normal]
 ";" = "command_mode"
+tab = "goto_next_buffer"
 
 # lazy git integration thx to the official wiki => https://github.com/helix-editor/helix/wiki/Recipes#git-integration
 C-g = [

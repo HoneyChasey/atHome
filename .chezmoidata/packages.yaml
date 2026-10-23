@@ -59,7 +59,7 @@ packages:
       - nm-connection-editor
       - tldr
       - usbmuxd
-      - nvim
+      - helix
       - gopls
       - lua-language-server
     services:
