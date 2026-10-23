@@ -2,6 +2,8 @@ theme="tokyonight"
 
 [editor]
 bufferline = "always"
+line-number = "relative"
+completion-timeout = 5
 
 [editor.cursor-shape]
 insert = "bar"
@@ -11,6 +13,7 @@ select = "underline"
 [editor.lsp]
 display-messages = true
 display-inlay-hints = true
+#auto-signature-help = true #Default is true
 
 [keys.normal]
 ";" = "command_mode"
@@ -29,4 +32,3 @@ x = ":buffer-close"
 
 [keys.select]
 ";" = "command_mode"
-
