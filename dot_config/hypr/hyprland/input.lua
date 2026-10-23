@@ -13,8 +13,9 @@ hl.config({
     follow_mouse= 1,
     sensitivity = 0.15, -- -1.0 - 1.0, 0 means no modification. Values outside the range are invalid.
     accel_profile = "adaptive", -- slow moves stay precise, fast moves travel far (libinput default)
+    natural_scroll = true, -- macOS-like reverse scroll for mice
     touchpad = {
-      natural_scroll = false,
+      natural_scroll = true, -- macOS-like reverse scroll for touchpads
       scroll_factor = 0.35, -- libinput default (1.0) scrolls way too far per swipe; ~0.35 feels close to macOS
       clickfinger_behavior = true, -- macOS-like: 2-finger click = right, 3-finger = middle
       tap_to_click = true,
