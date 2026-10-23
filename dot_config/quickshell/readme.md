@@ -8,6 +8,9 @@ Like on macOS, the text is black or white depending on the wallpaper: `Bar.qml` 
 hyprpaper for the active wallpaper (`hyprctl hyprpaper listactive`) and measures the
 brightness of its top strip. With another wallpaper tool the text stays white.
 
+The Wi-Fi and battery icons are drawn as vectors (`WifiIcon.qml`, `BatteryIcon.qml`) instead
+of nerd font glyphs, to look like the macOS ones.
+
 The capsules are blurred by the layer rule in `hypr/hyprland/rules.lua`, and the colors
 are in `Theme.qml`.
 

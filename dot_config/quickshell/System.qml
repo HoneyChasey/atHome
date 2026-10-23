@@ -15,17 +15,6 @@ RowLayout {
     property real prevIdle: 0
     property real prevTotal: 0
 
-    // ---- battery icon: charging bolt, else fill level ----
-    function battIcon(p) {
-        if (battStatus === "Charging") return "󰂄"
-        if (battStatus === "Full")     return "󰂅"
-        if (p >= 80) return "󰁹"
-        if (p >= 60) return "󰂁"
-        if (p >= 45) return "󰁿"
-        if (p >= 20) return "󰁽"
-        return "󰁺"
-    }
-
     component Stat: Text {
         font.family: Theme.uiFont
         font.pixelSize: Theme.fontSize
@@ -34,10 +23,18 @@ RowLayout {
 
     Stat { text: "󰻠  " + root.cpuPct + "%" }
     Stat { text: "󰍛  " + root.ramPct + "%" }
-    Stat {
+    // macOS order: percentage, then the battery
+    RowLayout {
         visible: root.battPct >= 0
-        color: root.battPct < 20 && root.battStatus !== "Charging" ? Theme.barRed : Theme.barText
-        text: root.battIcon(root.battPct) + "  " + root.battPct + "%"
+        spacing: 6
+        Stat {
+            color: root.battPct <= 20 && root.battStatus !== "Charging" ? Theme.barRed : Theme.barText
+            text: root.battPct + "%"
+        }
+        BatteryIcon {
+            percent: root.battPct
+            charging: root.battStatus === "Charging"
+        }
     }
 
     // ---- one sample of cpu (/proc/stat), ram (free) and the first BAT* found ----

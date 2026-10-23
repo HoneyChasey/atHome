@@ -13,24 +13,44 @@ RowLayout {
     property string ssid: ""
     property string vpn: ""        // empty = no vpn
 
-    function netIcon() {
-        if (kind === "eth") return "󰈀"
-        if (kind !== "wifi") return "󰤭"
-        if (signal >= 80) return "󰤨"
-        if (signal >= 60) return "󰤥"
-        if (signal >= 40) return "󰤢"
-        if (signal >= 20) return "󰤟"
-        return "󰤯"
+    // lit arcs of the wifi icon, like macOS: dot only when the signal is very weak
+    function wifiBars() {
+        if (signal >= 70) return 3
+        if (signal >= 45) return 2
+        if (signal >= 20) return 1
+        return 0
     }
 
-    Text {
-        Layout.maximumWidth: 160
-        elide: Text.ElideRight
-        font.family: Theme.uiFont
-        font.pixelSize: Theme.fontSize
-        color: root.kind === "off" ? Theme.barSubtext : Theme.barText
-        text: root.netIcon() + "  " + (root.kind === "wifi" ? root.ssid
-                                     : root.kind === "eth" ? "Ethernet" : "Offline")
+    Item {
+        implicitWidth: netRow.implicitWidth
+        implicitHeight: netRow.implicitHeight
+
+        RowLayout {
+            id: netRow
+            spacing: 6
+
+            WifiIcon {
+                visible: root.kind !== "eth"
+                connected: root.kind === "wifi"
+                bars: root.wifiBars()
+            }
+            Text {
+                visible: root.kind === "eth"
+                font.family: Theme.font
+                font.pixelSize: Theme.fontSize
+                color: Theme.barText
+                text: "󰈀"
+            }
+            Text {
+                Layout.maximumWidth: 140
+                elide: Text.ElideRight
+                font.family: Theme.uiFont
+                font.pixelSize: Theme.fontSize
+                color: root.kind === "off" ? Theme.barSubtext : Theme.barText
+                text: root.kind === "wifi" ? root.ssid : root.kind === "eth" ? "Ethernet" : "Offline"
+            }
+        }
+
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
