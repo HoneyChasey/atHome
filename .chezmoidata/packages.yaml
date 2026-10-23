@@ -62,6 +62,7 @@ packages:
       - helix
       - gopls
       - lua-language-server
+      - rust-analyzer
     services:
       enable:
         - tlp.service
