@@ -114,3 +114,4 @@ source $ZSH/oh-my-zsh.sh
 alias hx="helix"
 alias vim="nvim"
 alias obsiVaults="cd ~/Documents/obsiVaults/"
+alias xtool="~/AppImages/xtool.appimage"
