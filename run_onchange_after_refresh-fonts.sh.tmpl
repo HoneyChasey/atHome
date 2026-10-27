@@ -1,0 +1,6 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+# Re-runs every time .chezmoiexternal.toml.tmpl changes
+# externals hash: {{ include ".chezmoiexternal.toml.tmpl" | sha256sum }}
+fc-cache -f ~/.local/share/fonts
+{{ end -}}

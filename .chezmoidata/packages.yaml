@@ -63,6 +63,7 @@ packages:
       - gopls
       - lua-language-server
       - rust-analyzer
+      - torbrowser-launcher
     services:
       enable:
         - tlp.service

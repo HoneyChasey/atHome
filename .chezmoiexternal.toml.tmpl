@@ -23,3 +23,17 @@
     url = "https://github.com/Aloxaf/fzf-tab.git"
     refreshPeriod = "168h"
     clone.args = ["--depth=1"]
+
+# ---- EB Garamond (variable fonts from Google Fonts) ----
+{{ $fontDir := ".local/share/fonts/EBGaramond" -}}
+{{ if eq .chezmoi.os "darwin" }}{{ $fontDir = "Library/Fonts" }}{{ end -}}
+
+[{{ printf "%s/EBGaramond[wght].ttf" $fontDir | quote }}]
+    type = "file"
+    url = "https://github.com/google/fonts/raw/main/ofl/ebgaramond/EBGaramond%5Bwght%5D.ttf"
+    refreshPeriod = "720h"
+
+[{{ printf "%s/EBGaramond-Italic[wght].ttf" $fontDir | quote }}]
+    type = "file"
+    url = "https://github.com/google/fonts/raw/main/ofl/ebgaramond/EBGaramond-Italic%5Bwght%5D.ttf"
+    refreshPeriod = "720h"
