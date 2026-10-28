@@ -111,7 +111,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias hx="helix"
+{{ if eq .chezmoi.os "linux" -}}
+  alias hx="helix"
+{{- end}}
+
 alias vim="nvim"
 alias obsiVaults="cd ~/Documents/obsiVaults/"
 alias xtool="~/AppImages/xtool.appimage"
