@@ -46,6 +46,10 @@ hl.config({
             xray              = false, -- blur the windows behind, not only the wallpaper
             popups            = true,  -- blur menus and popups too
         },
+        -- Wobble activation because i like that (new in 0.57)
+        wobble = {
+            enabled = true,
+        },
     },
 
     -- Dwindle
