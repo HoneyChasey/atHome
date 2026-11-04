@@ -1,5 +1,6 @@
 # atHome
 
+
 My personal dotfiles, managed with [chezmoi](https://www.chezmoi.io/).
 They target **Arch Linux** (Hyprland desktop) first, and include a small setup for **macOS**.
 
