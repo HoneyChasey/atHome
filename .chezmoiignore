@@ -4,3 +4,6 @@ README.md
 .oh-my-zsh/cache/**
 
 .config/nvim/nvim-pack-lock.json
+
+.config/hypr/monitors.conf
+.config/hypr/monitors.lua
