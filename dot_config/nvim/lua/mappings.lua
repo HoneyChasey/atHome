@@ -35,12 +35,12 @@ end, { desc = "general format file" })
 map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "LSP go to definition"})
 
--- bufferline (replaces tabufline)
+-- buffers (shown in the lualine tabline)
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
 
-map("n", "<tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "buffer goto next" })
+map("n", "<tab>", "<cmd>bnext<CR>", { desc = "buffer goto next" })
 
-map("n", "<S-tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "buffer goto prev" })
+map("n", "<S-tab>", "<cmd>bprev<CR>", { desc = "buffer goto prev" })
 
 map("n", "<leader>x", ":bd!<CR>", { desc = "buffer close, keep window" }) -- S/O to this guy https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window and to this guy also https://stackoverflow.com/questions/1269648/how-do-i-close-a-single-buffer-out-of-many-in-vim
 

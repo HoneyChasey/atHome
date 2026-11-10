@@ -1,4 +1,7 @@
 require("neo-tree").setup({
+  window = {
+    position = "right", -- open the tree on the right side
+  },
   filesystem = {
     filtered_items = {
       visible = false,        -- if true, hidden items are dimmed instead of removed

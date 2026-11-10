@@ -80,3 +80,4 @@ packages:
       - com.heroicgameslauncher.hgl
       - com.github.PintaProject.Pinta
       - it.mijorus.gearlever
+      - org.keepassxc.KeePassXC

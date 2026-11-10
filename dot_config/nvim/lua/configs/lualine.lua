@@ -1,88 +1,61 @@
+-- Minimal statusline inspired by jakmaz/dotfiles
+
+-- Time when Neovim was opened, used to show the coding session duration
+local start_time = os.time()
+
 require('lualine').setup {
   options = {
-    icons_enabled = true,
     theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    always_show_tabline = true,
+    component_separators = '',
+    section_separators = '',
     globalstatus = true,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-      refresh_time = 16, -- ~60fps
-      events = {
-        'WinEnter',
-        'BufEnter',
-        'BufWritePost',
-        'SessionLoadPost',
-        'FileChangedShellPost',
-        'VimResized',
-        'Filetype',
-        'CursorMoved',
-        'CursorMovedI',
-        'ModeChanged',
-      },
-    }
+    disabled_filetypes = { statusline = { 'dashboard' } },
   },
+
   sections = {
-    lualine_a = {
+    lualine_a = {},
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
+    lualine_c = { { 'filename', path = 1 } },
+    lualine_x = {
+      -- LSP status (dimmed when no client is attached)
+      {
+        function() return '󰒋' end,
+        color = function()
+          if #vim.lsp.get_clients { bufnr = 0 } > 0 then return nil end
+          return 'Comment'
+        end,
+      },
+      -- Current Vim mode (NORMAL, INSERT, VISUAL...)
+      'mode',
+      -- Coding session duration
       {
         function()
-          local mode = require('lualine.utils.mode').get_mode()
-          return ' ' .. mode -- Neovim logo + mode, one string
+          local secs = os.time() - start_time
+          return string.format('󱑆 %dh%02dm', math.floor(secs / 3600), math.floor(secs % 3600 / 60))
         end,
-      }
-    },
-    lualine_b = {
-      {
-        'branch',
-        icon = '', -- custom git branch icon
-      },
-      'diff',
-      {
-        'diagnostics',
-        sources = { 'nvim_lsp' }, -- only show LSP diagnostics
       },
     },
-    lualine_c = {'filename'},
-lualine_x = {
-  {
-    function()
-      local clients = vim.lsp.get_clients({ bufnr = 0 })
-      if #clients == 0 then
-        return ''
-      end
-      local names = {}
-      for _, client in ipairs(clients) do
-        table.insert(names, client.name)
-      end
-      return ' ~ ' .. table.concat(names, ', ') -- LSP logo + names, one string
-    end,
-    color = { fg = '#98c379' },
-  },
-  'fileformat',
-  'filetype'
-},
-    lualine_y = {''},
-    lualine_z = {'location'}
+    lualine_y = {},
+    lualine_z = {},
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_c = {},
+    lualine_x = {},
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = {},
   },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
+
+  -- Buffer list at the top of the screen (replaces bufferline.nvim)
+  tabline = {
+    lualine_a = {
+      {
+        'buffers',
+        show_filename_only = true,
+        symbols = { modified = ' ●', alternate_file = '', directory = '' },
+      },
+    },
+    lualine_z = { 'tabs' },
+  },
 }

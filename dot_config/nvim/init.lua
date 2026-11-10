@@ -14,7 +14,7 @@ require("plugins.init")
 
 
 
-vim.cmd.colorscheme("tokyonight") -- change here your default theme
+vim.cmd.colorscheme("catppuccin") -- change here your default theme
 
 vim.schedule(function()
   require "mappings"
