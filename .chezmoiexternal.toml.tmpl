@@ -24,6 +24,12 @@
     refreshPeriod = "168h"
     clone.args = ["--depth=1"]
 
+[".config/nvim"]
+  type = "git-repo"
+  url = "https://github.com/HoneyChasey/Nvarch.git" 
+  refreshPeriod = "24h"
+
+
 # ---- EB Garamond (variable fonts from Google Fonts) ----
 {{ $fontDir := ".local/share/fonts/EBGaramond" -}}
 {{ if eq .chezmoi.os "darwin" }}{{ $fontDir = "Library/Fonts" }}{{ end -}}
