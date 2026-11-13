@@ -6,14 +6,16 @@
 
 
 -- General
+-- Omarchy-like look: square corners, 2px gradient border, even gaps, light blur
 hl.config({
     general = {
         gaps_in          = 5,
-        gaps_out         = { top = 6, right = 20, bottom = 20, left = 20 }, -- small top gap: the bar has no background
-        border_size      = 1,
+        gaps_out         = 10,
+        border_size      = 2,
         col = {
-            active_border   = "rgba(C4B5FDcc)",
-            inactive_border = "rgba(1E1E2Eff)",
+            -- catppuccin lavender -> blue, the accent of the bar
+            active_border   = { colors = { "rgba(c4b5fdee)", "rgba(89b4faee)" }, angle = 45 },
+            inactive_border = "rgba(595959aa)",
         },
         resize_on_border = false,
         allow_tearing    = false,
@@ -22,33 +24,24 @@ hl.config({
 
     -- Decoration
     decoration = {
-        rounding       = 8,
-        rounding_power = 2,
-        -- Frosted glass: blur only shows through transparent pixels, so windows keep
-        -- a small amount of transparency, and a strong blur hides what's behind them.
-        active_opacity   = 1,
-        inactive_opacity = 0.98,
+        rounding         = 3,
+        -- a bit of transparency so the blur shows through (omarchy: 0.97 / 0.9)
+        active_opacity   = 0.97,
+        inactive_opacity = 0.9,
         shadow = {
             enabled      = true,
-            range        = 10,
+            range        = 2,
             render_power = 3,
             color        = "rgba(1a1a1aee)",
         },
         blur = {
-            enabled           = true,
-            size              = 6,     -- blur radius
-            passes            = 3,     -- more passes = smoother, less see-through
-            noise             = 0.02,  -- light grain, frosted glass texture
-            contrast          = 0.9,
-            brightness        = 0.9,   -- darker so text stays readable
-            vibrancy          = 0.3,
-            new_optimizations = true,
-            xray              = false, -- blur the windows behind, not only the wallpaper
-            popups            = true,  -- blur menus and popups too
-        },
-        -- Wobble activation because i like that (new in 0.57)
-        wobble = {
-            enabled = true,
+            enabled    = true,
+            size       = 2,
+            passes     = 2,
+            brightness = 0.60,
+            contrast   = 0.75,
+            special    = true,  -- blur behind the special workspace too
+            popups     = true,  -- blur menus and popups too
         },
     },
 

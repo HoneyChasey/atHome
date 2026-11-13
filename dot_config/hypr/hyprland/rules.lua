@@ -29,8 +29,7 @@ hl.window_rule({
     float = true,
 })
 
--- Quickshell top bar: no background like the macOS 27 menu bar, only the glass capsules
--- are blurred (ignore_alpha skips the transparent bar and the text shadow)
+-- Quickshell top bar: blur behind the (almost opaque) bar and its popups
 hl.layer_rule({
     name         = "blur-quickshell-bar",
     match        = { namespace = "^quickshell-bar$" },

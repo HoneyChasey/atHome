@@ -93,7 +93,7 @@ Scope {
             id: card
             width: 280
             height: 58
-            radius: 16
+            radius: 0
             color: Theme.bg
             border.width: 1
             border.color: Theme.surface

@@ -1,109 +1,58 @@
-// Workspace indicators widget: one rounded square per workspace, with the icons of its open apps
+// Workspace numbers, Omarchy style: 1-5 always shown, plus any other open workspace
+// active: accent + underline / with windows: normal / empty: dim
+// click: go to it, scroll: previous / next
 import QtQuick
 import QtQuick.Layouts
-import Quickshell
-import Quickshell.Widgets
 import Quickshell.Hyprland
 
 RowLayout {
-    spacing: 4
+    id: root
+    spacing: 0
 
-    // icon of one app, found by the freedesktop standards: app_id -> .desktop file -> icon theme
-    // falls back to a generic window glyph when the app has no icon
-    component AppIcon: Item {
-        id: icon
-        required property string appId
-        property color glyphColor: Theme.barText
-
-        readonly property string desktopIcon: {
-            // desktop entries load in the background after startup:
-            // reading the list makes this re-run once they are loaded
-            DesktopEntries.applications.values
-            const entry = DesktopEntries.heuristicLookup(appId)
-            return entry ? Quickshell.iconPath(entry.icon, true) : ""
-        }
-
-        implicitWidth: 16
-        implicitHeight: 16
-
-        IconImage {
-            anchors.fill: parent
-            visible: icon.desktopIcon !== ""
-            source: icon.desktopIcon
-        }
-        Text {
-            anchors.centerIn: parent
-            visible: icon.desktopIcon === ""
-            text: "󰖯"
-            font.family: Theme.font
-            font.pixelSize: 15
-            color: icon.glyphColor
-        }
+    readonly property var ids: {
+        const set = new Set([1, 2, 3, 4, 5])
+        for (const w of Hyprland.workspaces.values)
+            if (w.id > 0) set.add(w.id)      // skip special workspaces
+        return [...set].sort((a, b) => a - b)
     }
 
     Repeater {
-        model: Hyprland.workspaces
+        model: root.ids
 
-        Rectangle {
-            id: ws
-            required property var modelData
+        MouseArea {
+            id: cell
+            required property int modelData
+            readonly property var ws: Hyprland.workspaces.values.find(w => w.id === modelData) ?? null
+            readonly property bool active: Hyprland.focusedWorkspace?.id === modelData
+            readonly property bool occupied: (ws?.toplevels.values.length ?? 0) > 0
 
-            // windows on THIS workspace
-            property var wsToplevels: Hyprland.toplevels.values.filter(
-                t => t.workspace && t.workspace.id === modelData.id)
+            implicitWidth: 22
+            implicitHeight: Theme.barHeight
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: Hyprland.dispatch(`hl.dsp.focus({ workspace = ${modelData} })`)
+            onWheel: wheel => Hyprland.dispatch(
+                `hl.dsp.focus({ workspace = "${wheel.angleDelta.y > 0 ? "e-1" : "e+1"}" })`)
 
-            // unique app ids on this workspace
-            property var apps: {
-                let seen = ({})
-                let out = []
-                for (const t of wsToplevels) {
-                    const id = t.wayland ? t.wayland.appId
-                             : (t.lastIpcObject ? t.lastIpcObject.class : "")
-                    if (id && !seen[id]) { seen[id] = true; out.push(id) }
-                }
-                return out
-            }
-
-            visible: modelData.id > 0       // hide special workspaces
-            implicitWidth: row.implicitWidth + 14
-            implicitHeight: 22
-            radius: height / 2                      // liquid glass capsule
-            color: modelData.focused ? Theme.barCapsule
-                 : hover.containsMouse ? Qt.rgba(Theme.barCapsule.r, Theme.barCapsule.g, Theme.barCapsule.b, 0.5)
-                 : "transparent"
-            border.width: modelData.focused ? 1 : 0
-            border.color: Theme.glassEdge
-            Behavior on color { ColorAnimation { duration: 150 } }
-
-            RowLayout {
-                id: row
+            Text {
                 anchors.centerIn: parent
-                spacing: 5
-
-                Text {
-                    text: ws.modelData.id
-                    font.family: Theme.uiFont
-                    font.pixelSize: 12
-                    font.bold: ws.modelData.focused
-                    color: ws.modelData.focused ? Theme.barText : Theme.barSubtext
-                }
-
-                Repeater {
-                    model: ws.apps
-                    AppIcon {
-                        required property string modelData
-                        appId: modelData
-                        glyphColor: Theme.barText
-                    }
-                }
+                text: cell.modelData
+                font.family: Theme.font
+                font.pixelSize: Theme.barFontSize
+                font.bold: cell.active
+                color: cell.active ? Theme.accent
+                     : cell.occupied || cell.containsMouse ? Theme.barText
+                     : Theme.barDim
+                Behavior on color { ColorAnimation { duration: 150 } }
             }
 
-            MouseArea {
-                id: hover
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                onClicked: ws.modelData.activate()
+            Rectangle {
+                anchors { bottom: parent.bottom; bottomMargin: 3; horizontalCenter: parent.horizontalCenter }
+                width: cell.active ? 12 : 0
+                height: 2
+                radius: 1
+                color: Theme.accent
+                Behavior on width { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
             }
         }
     }

@@ -1,6 +1,6 @@
 // Control center, like on macOS: wifi, bluetooth, do not disturb, dark / light mode,
 // brightness, volume and the media playing
-// open: control center icon in the bar, or `qs ipc call controlcenter toggle`
+// open: wifi / bluetooth icon in the bar, or `qs ipc call controlcenter toggle`
 pragma Singleton
 import QtQuick
 import QtQuick.Layouts
@@ -34,6 +34,7 @@ Singleton {
     function toggle(win) {
         if (open) { open = false; return }
         barWindow = win ?? null
+        CalendarMenu.open = false
         refreshProc.running = true
         open = true
     }
@@ -116,7 +117,7 @@ Singleton {
 
     // rounded block holding a group of controls
     component Tile: Rectangle {
-        radius: 16
+        radius: 0
         color: Qt.rgba(Theme.surface.r, Theme.surface.g, Theme.surface.b, 0.6)
         border.width: 1
         border.color: Theme.surface
@@ -276,7 +277,7 @@ Singleton {
             id: card
             width: 360
             height: content.implicitHeight + 24
-            radius: 20
+            radius: 0
             color: Theme.bg
             border.width: 1
             border.color: Theme.surface

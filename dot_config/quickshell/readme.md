@@ -1,20 +1,29 @@
 # Quickshell bar
 
-## Style
+## Layout
 
-The top bar follows the macOS 27 menu bar: no background, the text sits on the wallpaper
-with a faint shadow, and only the focused workspace gets a liquid glass capsule.
-Like on macOS, the text is black or white depending on the wallpaper: `Bar.qml` asks
-hyprpaper for the active wallpaper (`hyprctl hyprpaper listactive`) and measures the
-brightness of its top strip. With another wallpaper tool the text stays white.
+Omarchy-like bar: a thin solid strip in the theme colors (`Theme.qml`), monospace text and
+nerd font glyphs.
 
-The Wi-Fi and battery icons are drawn as vectors (`WifiIcon.qml`, `BatteryIcon.qml`) instead
-of nerd font glyphs, to look like the macOS ones.
+| Left | Middle | Right |
+|------|--------|-------|
+| icon of the focused app (`Logo.qml`, arch logo when nothing is focused) | date, time, notifications (`Clock.qml`) | background apps (`Tray.qml`) |
+| workspace numbers 1-5 + any other open one (`Workspaces.qml`) | | bluetooth (only when connected), wifi, RAM, battery (`Status.qml`) |
 
-The capsules are blurred by the layer rule in `hypr/hyprland/rules.lua`, and the colors
-are in `Theme.qml`.
+- **Workspaces**: accent + underline = active, bright = has windows, dim = empty.
+  Click to go, scroll for previous / next.
+- **Clock**: click (or `qs ipc call calendar toggle`) opens `CalendarMenu.qml`: big time,
+  month calendar (arrows or scroll to change month, click the title to come back),
+  notifications from swaync (count, show the swaync panel, clear, do not disturb).
+  The bell in the bar shows the count live (`swaync-client -swb`).
+- **Background apps**: left click brings the app window to the *current* workspace and
+  focuses it. If the app has no window (only in the tray), it is activated and the window it
+  opens is moved here. Right click: app menu, middle click: secondary action.
+  The tray item is matched to a window by its id / title vs the window class; an app whose
+  names don't match falls back to the normal activation.
+- **Bluetooth / wifi**: click opens the control center. **RAM**: click opens `btop`.
 
-## App icons in the workspaces
+## Focused app icon
 
 You don't need to add icons one by one: the bar finds the icon of each app automatically,
 the same way docks and app launchers do on GNOME / KDE.
@@ -34,7 +43,7 @@ It's not a Wayland protocol, but two freedesktop standards working together:
 
 The folders searched come from `$XDG_DATA_DIRS`, which already includes the flatpak folders.
 
-In `Workspaces.qml` this is done by:
+In `Logo.qml` this is done by:
 
 ```qml
 const entry = DesktopEntries.heuristicLookup(appId)   // find the .desktop file
@@ -78,7 +87,7 @@ NoDisplay=true
 
 ## Control center
 
-The `󰔡` icon at the right of the bar (or `SUPER + N`) opens a macOS-like control center:
+The wifi / bluetooth icons at the right of the bar (or `SUPER + N`) opens a macOS-like control center:
 Wi-Fi, Bluetooth, Do Not Disturb (swaync), dark / light mode, screenshot, lock, brightness,
 volume and the media playing. Clicking the Wi-Fi / Bluetooth text opens `nmtui` / `bluetui`.
 
