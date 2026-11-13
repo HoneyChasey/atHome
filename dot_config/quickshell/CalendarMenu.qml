@@ -88,7 +88,7 @@ Singleton {
 
     // ---- building blocks ----
     component Tile: Rectangle {
-        radius: 0
+        radius: Theme.roundingSmall
         color: Qt.rgba(Theme.surface.r, Theme.surface.g, Theme.surface.b, 0.6)
         border.width: 1
         border.color: Theme.surface
@@ -166,7 +166,7 @@ Singleton {
             id: card
             width: 320
             height: content.implicitHeight + 24
-            radius: 0
+            radius: Theme.rounding
             color: Theme.bg
             border.width: 1
             border.color: Theme.surface
@@ -264,7 +264,7 @@ Singleton {
                                     required property var modelData
                                     Layout.fillWidth: true
                                     implicitHeight: 28
-                                    radius: 8
+                                    radius: Theme.roundingSmall
                                     color: modelData.today ? Theme.accent : "transparent"
                                     Label {
                                         anchors.centerIn: parent

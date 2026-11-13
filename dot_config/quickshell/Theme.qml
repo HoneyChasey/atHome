@@ -30,6 +30,10 @@ Singleton {
     readonly property int barHeight:    28
     readonly property int barFontSize:  12
 
+    // corner radius for popup cards, and a smaller one for elements nested inside them
+    readonly property int rounding:      12
+    readonly property int roundingSmall: 8
+
     readonly property string font:   "JetBrainsMono Nerd Font"
     readonly property string uiFont: "Adwaita Sans"     // closest to SF Pro; icons fall back to the nerd font
     readonly property int fontSize:  13

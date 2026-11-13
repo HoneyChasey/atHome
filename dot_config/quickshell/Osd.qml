@@ -93,7 +93,7 @@ Scope {
             id: card
             width: 280
             height: 58
-            radius: 0
+            radius: Theme.rounding
             color: Theme.bg
             border.width: 1
             border.color: Theme.surface
@@ -143,12 +143,12 @@ Scope {
                     Rectangle {
                         Layout.fillWidth: true
                         implicitHeight: 6
-                        radius: 3
+                        radius: height / 2
                         color: Theme.surface
                         Rectangle {
                             width: parent.width * Math.max(0, Math.min(1, root.value))
                             height: parent.height
-                            radius: 3
+                            radius: height / 2
                             color: root.muted ? Theme.subtext : Theme.accent
                             Behavior on width { NumberAnimation { duration: 120; easing.type: Easing.OutCubic } }
                         }

@@ -117,7 +117,7 @@ Singleton {
 
     // rounded block holding a group of controls
     component Tile: Rectangle {
-        radius: 0
+        radius: Theme.roundingSmall
         color: Qt.rgba(Theme.surface.r, Theme.surface.g, Theme.surface.b, 0.6)
         border.width: 1
         border.color: Theme.surface
@@ -277,7 +277,7 @@ Singleton {
             id: card
             width: 360
             height: content.implicitHeight + 24
-            radius: 0
+            radius: Theme.rounding
             color: Theme.bg
             border.width: 1
             border.color: Theme.surface
@@ -480,7 +480,7 @@ Singleton {
                         ClippingRectangle {
                             implicitWidth: 44
                             implicitHeight: 44
-                            radius: 8
+                            radius: Theme.roundingSmall
                             color: Qt.rgba(Theme.text.r, Theme.text.g, Theme.text.b, 0.12)
                             Text {
                                 anchors.centerIn: parent

@@ -24,7 +24,7 @@ hl.config({
 
     -- Decoration
     decoration = {
-        rounding         = 3,
+        rounding         = 2,
         -- a bit of transparency so the blur shows through (omarchy: 0.97 / 0.9)
         active_opacity   = 0.97,
         inactive_opacity = 0.9,
