@@ -25,8 +25,8 @@ hl.config({
     -- Decoration
     decoration = {
         rounding         = 2,
-        -- a bit of transparency so the blur shows through (omarchy: 0.97 / 0.9)
-        active_opacity   = 0.97,
+        -- a bit of transparency (window blur is disabled in rules.lua)
+        active_opacity   = 1,
         inactive_opacity = 0.9,
         shadow = {
             enabled      = true,

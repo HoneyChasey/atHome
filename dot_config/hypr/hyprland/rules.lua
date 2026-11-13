@@ -7,6 +7,13 @@ hl.window_rule({
     suppress_event = "maximize",
 })
 
+-- No blur behind windows (blur stays on for the quickshell bar layer)
+hl.window_rule({
+    name    = "no-blur-windows",
+    match   = { class = ".*" },
+    no_blur = true,
+})
+
 -- Fix some dragging issues with XWayland
 hl.window_rule({
     name = "fix-xwayland-drags",
