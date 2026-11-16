@@ -64,6 +64,7 @@ packages:
       - lua-language-server
       - rust-analyzer
       - torbrowser-launcher
+      - ttf-lilex-nerd
     services:
       enable:
         - tlp.service
@@ -77,7 +78,5 @@ packages:
       - com.discordapp.Discord
       - app.zen_browser.zen
       - md.obsidian.Obsidian
-      - com.heroicgameslauncher.hgl
       - com.github.PintaProject.Pinta
       - it.mijorus.gearlever
-      - org.keepassxc.KeePassXC
