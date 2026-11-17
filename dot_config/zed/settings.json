@@ -1,0 +1,59 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "git_panel": {
+    "dock": "right"
+  },
+  "project_panel": {
+    "diagnostic_badges": false,
+    "indent_size": 20.0,
+    "folder_indicator": "icon",
+    "file_icons": true,
+    "entry_spacing": "comfortable",
+    "dock": "right"
+  },
+  "bottom_dock_layout": "contained",
+  "icon_theme": "Zed (Default)",
+  "suggest_extensions": false,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+    "anthropic_retention": false
+  },
+  "accessible_mode": false,
+  "diff_view_style": "split",
+  "vim": {
+    "toggle_relative_line_numbers": true
+  },
+  "disable_ai": true,
+  "tabs": {
+    "git_status": false
+  },
+  "title_bar": {
+    "show_branch_status_icon": false
+  },
+  "status_bar": {
+    "line_endings_button": false
+  },
+  "semantic_tokens": "combined",
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
+
+  "show_completions_on_input": true,
+  "completions":{
+    "words": "enabled",
+    "words_min_length": 2
+  },
+}

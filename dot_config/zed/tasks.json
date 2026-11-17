@@ -1,0 +1,22 @@
+// Global tasks. See https://zed.dev/docs/tasks for documentation.
+[
+  // Lazygit integration, thx to https://github.com/zed-industries/zed/discussions/8485
+  // Bound to `space g` in keymap.json.
+  {
+    "label": "Lazygit",
+    "command": "lazygit",
+    "args": ["-p", "$ZED_WORKTREE_ROOT"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    // Open lazygit full-size in the main editor area instead of the bottom dock
+    "reveal": "always",
+    "reveal_target": "center",
+    // Close the tab when quitting lazygit with `q`
+    "hide": "always",
+    "shell": "system",
+    "show_summary": false,
+    "show_command": false,
+    // Save edited buffers so lazygit sees the latest changes
+    "save": "all"
+  }
+]

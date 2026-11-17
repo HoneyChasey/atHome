@@ -1,0 +1,47 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+
+[
+  {
+    "context": "Dock || Terminal || (Editor && vim_mode == normal)",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePreviousItem",
+      "space x": "pane::CloseActiveItem",
+      "space h": "workspace::ToggleBottomDock",
+      "space t r": "workspace::ToggleRightDock",
+      "space /": "pane::DeploySearch",
+      "space f": "file_finder::Toggle"
+    }
+  },
+
+  // Lazygit integration. The task itself is defined in tasks.json.
+  {
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      "space g": ["task::Spawn", { "task_name": "Lazygit" }]
+    }
+  },
+
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "r": "project_panel::Rename"
+    }
+  }
+]

@@ -1,0 +1,1 @@
+Zed was implemented, but need to be tested on vierge host to check if chezmoi works correctly and correctly load the zed config
