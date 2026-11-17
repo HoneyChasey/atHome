@@ -1,1 +1,1 @@
-Zed was implemented, but need to be tested on vierge host to check if chezmoi works correctly and correctly load the zed config
+Zed correctly load the keybinds.jon on the config, but don't know if taks.json load correctly on the vm
