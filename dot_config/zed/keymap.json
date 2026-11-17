@@ -25,7 +25,8 @@
       "space h": "workspace::ToggleBottomDock",
       "space t r": "workspace::ToggleRightDock",
       "space /": "pane::DeploySearch",
-      "space f": "file_finder::Toggle"
+      "space f": "file_finder::Toggle",
+      "space g d": "editor::GoToDefinition"
     }
   },
 
@@ -33,7 +34,7 @@
   {
     "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
     "bindings": {
-      "space g": ["task::Spawn", { "task_name": "Lazygit" }]
+      "space g g": ["task::Spawn", { "task_name": "Lazygit" }]
     }
   },
 

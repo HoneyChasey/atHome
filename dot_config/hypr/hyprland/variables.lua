@@ -1,4 +1,4 @@
--- variables.lua 
+-- variables.lua
 
 --- --------------
 --- MY PROGRAMS ---
@@ -14,3 +14,6 @@ Menu = ""
 Browser = "flatpak run app.zen_browser.zen"
 -- Browser = "zen-beta"
 WallapperApp = "hyprpaper"
+
+-- IDE
+Ide = "zeditor"

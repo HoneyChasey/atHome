@@ -9,6 +9,8 @@ hl.bind(mainMod .. " + E",           hl.dsp.exec_cmd(FileManager))
 hl.bind(mainMod .. " + B",           hl.dsp.exec_cmd(Browser))
 hl.bind(mainMod .. " + SHIFT + B",   hl.dsp.exec_cmd(Browser .. " --private-window"))
 
+hl.bind(mainMod .. " + Z",           hl.dsp.exec_cmd(Ide))
+
 -- Session
 hl.bind(mainMod .. " + M",           hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"))
 hl.bind(mainMod .. " + L",           hl.dsp.exec_cmd("hyprlock"))
