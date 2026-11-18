@@ -44,5 +44,20 @@
       "a": "project_panel::NewFile",
       "r": "project_panel::Rename"
     }
+  },
+
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-x": "terminal::ToggleViMode"
+    }
+  },
+
+  {
+    "context": "Terminal && vi_mode",
+    "bindings": {
+      "p": ["workspace::SendKeystrokes", "ctrl-x cmd-v"] // Not working. Check on internet if possible to past with vim mode direlty on the terminal
+    }
   }
+
 ]
