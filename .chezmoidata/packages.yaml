@@ -64,7 +64,7 @@ packages:
       - lua-language-server
       - rust-analyzer
       - torbrowser-launcher
-      - ttf-lilex-nerd
+      - ttf-zed-mono-nerd
       - zed
     services:
       enable:
