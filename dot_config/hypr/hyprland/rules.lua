@@ -44,3 +44,12 @@ hl.layer_rule({
     blur_popups  = true,
     ignore_alpha = 0.15,
 })
+
+-- Quickshell dock: blur behind the translucent dock, its app names and its menus
+hl.layer_rule({
+    name         = "blur-quickshell-dock",
+    match        = { namespace = "^quickshell-dock$" },
+    blur         = true,
+    blur_popups  = true,
+    ignore_alpha = 0.03,
+})

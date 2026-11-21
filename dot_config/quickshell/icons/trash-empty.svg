@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="shade" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#6f737a" stop-opacity="0.55"/>
+      <stop offset="0.25" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="0.42" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="0.8" stop-color="#9aa0a8" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#55595f" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#e9ecf0" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#b9bec6" stop-opacity="0.45"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#8d9299"/>
+      <stop offset="0.3" stop-color="#f4f5f7"/>
+      <stop offset="0.6" stop-color="#cfd3d8"/>
+      <stop offset="1" stop-color="#7d8288"/>
+    </linearGradient>
+    <linearGradient id="inside" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#3a3d42"/>
+      <stop offset="1" stop-color="#6b7077"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#dcdcdc"/>
+    </linearGradient>
+    <radialGradient id="shadow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#000" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="bodyclip"><path d="M29,30 L38,114 A26,6 0 0 0 90,114 L99,30 Z"/></clipPath>
+  </defs>
+
+  <ellipse cx="64" cy="117" rx="36" ry="7" fill="url(#shadow)"/>
+
+  <!-- opening (back of the bin) -->
+  <ellipse cx="64" cy="30" rx="33" ry="6.7" fill="url(#inside)"/>
+
+  <!-- body -->
+  <path d="M29,30 L38,114 A26,6 0 0 0 90,114 L99,30 Z" fill="url(#glass)"/>
+  
+  <g clip-path="url(#bodyclip)" stroke="#4c5056" stroke-opacity="0.75" stroke-width="1.15" fill="none">
+      <line x1="30.02" y1="30" x2="38.76" y2="115.44"/>
+      <line x1="33.01" y1="30" x2="40.98" y2="116.79"/>
+      <line x1="37.80" y1="30" x2="44.54" y2="117.98"/>
+      <line x1="44.12" y1="30" x2="49.23" y2="118.94"/>
+      <line x1="51.59" y1="30" x2="54.78" y2="119.61"/>
+      <line x1="59.78" y1="30" x2="60.87" y2="119.96"/>
+      <line x1="68.22" y1="30" x2="67.13" y2="119.96"/>
+      <line x1="76.41" y1="30" x2="73.22" y2="119.61"/>
+      <line x1="83.88" y1="30" x2="78.77" y2="118.94"/>
+      <line x1="90.20" y1="30" x2="83.46" y2="117.98"/>
+      <line x1="94.99" y1="30" x2="87.02" y2="116.79"/>
+      <line x1="97.98" y1="30" x2="89.24" y2="115.44"/>
+      <path d="M29.96,39 A34.04,8.23 0 0 0 98.04,39"/>
+      <path d="M30.88,47.5 A33.12,7.98 0 0 0 97.12,47.5"/>
+      <path d="M31.79,56.0 A32.21,7.73 0 0 0 96.21,56.0"/>
+      <path d="M32.70,64.5 A31.30,7.47 0 0 0 95.30,64.5"/>
+      <path d="M33.61,73.0 A30.39,7.22 0 0 0 94.39,73.0"/>
+      <path d="M34.52,81.5 A29.48,6.97 0 0 0 93.48,81.5"/>
+      <path d="M35.43,90.0 A28.57,6.71 0 0 0 92.57,90.0"/>
+      <path d="M36.34,98.5 A27.66,6.46 0 0 0 91.66,98.5"/>
+      <path d="M37.25,107.0 A26.75,6.21 0 0 0 90.75,107.0"/>
+  </g>
+  <path d="M29,30 L38,114 A26,6 0 0 0 90,114 L99,30 Z" fill="url(#shade)"/>
+  <path d="M29,30 L38,114 A26,6 0 0 0 90,114 L99,30 Z" fill="none" stroke="#5b6066" stroke-opacity="0.8" stroke-width="1.2"/>
+  <!-- bottom band -->
+  <path d="M37.4,111 A26.6,6 0 0 0 90.6,111 L90,114 A26,6 0 0 1 38,114 Z" fill="url(#rim)" opacity="0.9"/>
+
+  
+
+  <!-- rim -->
+  <path d="M27.5,30 A36.5,10.0 0 0 0 100.5,30 A36.5,10.0 0 0 0 27.5,30 Z
+           M31,30 A33,6.7 0 0 1 97,30 A33,6.7 0 0 1 31,30 Z"
+        fill="url(#rim)" fill-rule="evenodd" stroke="#6a6f75" stroke-width="0.8"/>
+  
+</svg>

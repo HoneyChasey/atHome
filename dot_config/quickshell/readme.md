@@ -100,6 +100,26 @@ The switch (or `SUPER + SHIFT + T`, or `qs ipc call theme toggle`) sets
 - GTK / libadwaita apps follow, and the xdg portal tells browsers, electron apps and flatpaks
 - ghostty switches with `theme = light:...,dark:...`
 
+## Dock
+
+macOS-like dock (`Dock.qml`, `DockState.qml`), always auto-hidden: it slides up as soon as
+the mouse touches the bottom edge of the screen and hides when the mouse leaves it.
+
+- Apps kept in the dock, a separator, the other open apps, then the trash.
+- Magnification under the mouse, the app name above the hovered icon, a dot under open apps.
+- **Left click**: opens the app (the icon bounces until its window appears) or focuses its
+  window; click again to go to its next window. **Middle click**: new window.
+- **Right click / long press**: its windows, the actions of its `.desktop` file,
+  New Window, Keep in Dock / Remove from Dock, Quit. On the trash: Open, Empty Trash.
+- **Drag** an icon to move it, drag it up out of the dock to remove it.
+- An app asking for attention (urgent window) bounces and shows the dock for a moment.
+- `qs ipc call dock toggle` keeps it shown / back to auto-hide (`reveal`, `autohide`).
+
+The kept apps (desktop entry ids) are saved in
+`~/.local/state/quickshell/by-shell/<id>/dock.json`, not in this repo. The default list
+is in `DockState.qml`. Icons use the `Adwaita` theme (`//@ pragma IconTheme` in `shell.qml`,
+needs a full restart of `qs`), except the trash: `icons/trash-empty.svg` / `icons/trash-full.svg`.
+
 ## Reloading
 
 Quickshell doesn't always hot-reload after `chezmoi apply`. If a change doesn't show up:
