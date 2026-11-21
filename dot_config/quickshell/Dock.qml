@@ -135,16 +135,23 @@ PanelWindow {
     }
 
     // ---- context menu ----
+    // the entries are built once when the menu opens: rebuilding them while it is open (a
+    // window title changing, like a terminal) would recreate the entry under the mouse and
+    // lose the click
+    property var menuEntries: []
+    property real menuX: 0
+    property real menuY: 0
+
     function openMenu(it) {
         hoveredItem = null
         menuItem = it
-        popup.anchor.rect.x = row.x + it.x + it.width / 2
-        popup.anchor.rect.y = row.y + row.height - it.iconSize - 10
+        menuEntries = buildMenu(it)
+        menuX = row.x + it.x + it.width / 2
+        menuY = row.y + row.height - it.iconSize - 10
         menuOpen = true
     }
 
-    readonly property var menuEntries: {
-        const it = menuItem
+    function buildMenu(it) {
         if (!it) return []
         if (it.kind === "trash")
             return [{ t: "Open", a: "trash-open" },
@@ -156,7 +163,10 @@ PanelWindow {
         if (it.windows.length) out.push({ sep: true })
         const acts = it.entry?.actions ?? []
         for (let i = 0; i < acts.length; i++) out.push({ t: acts[i].name, a: "action", i })
-        if (it.entry) out.push({ t: it.windows.length ? "New Window" : "Open", a: "launch" })
+        const launchText = it.windows.length ? "New Window" : "Open"
+        let hasSame = false     // the app often has its own "New Window" action
+        for (let i = 0; i < acts.length; i++) if (acts[i].name === launchText) hasSame = true
+        if (it.entry && !hasSame) out.push({ t: launchText, a: "launch" })
         if (it.entry) {
             out.push({ sep: true })
             out.push({ t: it.pinned ? "Remove from Dock" : "Keep in Dock", a: "pin" })
@@ -482,15 +492,23 @@ PanelWindow {
     }
 
     // ================= context menu =================
-    PopupWindow {
+    // its own layer surface (like CalendarMenu) rather than a popup of the dock: with an
+    // xdg popup the focus grab could close the menu on the click, before the entry got it
+    PanelWindow {
         id: popup
+        screen: dock.screen
         visible: dock.menuOpen && dock.menuItem !== null
-        anchor.window: dock
-        anchor.edges: Edges.Top
-        anchor.gravity: Edges.Top
+        anchors { bottom: true; left: true }
+        margins {
+            left: Math.max(8, Math.min(dock.width - card.width - 8, dock.menuX - card.width / 2))
+            bottom: dock.height - dock.menuY
+        }
+        exclusionMode: ExclusionMode.Ignore
         implicitWidth: card.width
         implicitHeight: card.height
         color: "transparent"
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.namespace: "quickshell-dock"
 
         HyprlandFocusGrab {
             active: popup.visible

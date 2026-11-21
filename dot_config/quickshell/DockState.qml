@@ -20,50 +20,58 @@ Singleton {
     }
 
     // desktop entry ids (the .desktop file name without the extension)
-    readonly property var pinned: store.pinned
+    // the list lives in a plain JS property, the file is only used to save it (a JsonAdapter
+    // list ignored an assignment made right after another change: "Keep in Dock" did nothing)
+    readonly property var defaults: [   // first start: the apps from packages.yaml
+        "org.gnome.Nautilus",
+        "com.mitchellh.ghostty",
+        "app.zen_browser.zen",
+        "dev.zed.Zed",
+        "md.obsidian.Obsidian",
+        "com.discordapp.Discord",
+        "signal",
+        "steam",
+    ]
+    property var pinned: []
 
-    function isPinned(id) { return store.pinned.includes(id) }
+    function isPinned(id) { return pinned.includes(id) }
+
+    function save(list) {
+        pinned = list
+        file.setText(JSON.stringify({ pinned: list }, null, 4) + "\n")
+    }
 
     function pin(id, index) {
         if (isPinned(id)) return
-        const list = store.pinned.slice()
-        list.splice(index ?? list.length, 0, id)
-        store.pinned = list
+        const list = pinned.slice()
+        list.splice(index === undefined ? list.length : index, 0, id)
+        save(list)
     }
 
     function unpin(id) {
-        store.pinned = store.pinned.filter(p => p !== id)
+        save(pinned.filter(p => p !== id))
     }
 
     function move(id, index) {
-        const from = store.pinned.indexOf(id)
+        const from = pinned.indexOf(id)
         if (from < 0 || from === index) return
-        const list = store.pinned.slice()
+        const list = pinned.slice()
         list.splice(from, 1)
         list.splice(index, 0, id)
-        store.pinned = list
+        save(list)
     }
 
     FileView {
+        id: file
         path: Quickshell.statePath("dock.json")
-        watchChanges: true
-        onFileChanged: reload()
-        onAdapterUpdated: writeAdapter()
-        onLoadFailed: err => { if (err === FileViewError.FileNotFound) writeAdapter() }
-
-        JsonAdapter {
-            id: store
-            // first start: the apps from packages.yaml
-            property list<string> pinned: [
-                "org.gnome.Nautilus",
-                "com.mitchellh.ghostty",
-                "app.zen_browser.zen",
-                "dev.zed.Zed",
-                "md.obsidian.Obsidian",
-                "com.discordapp.Discord",
-                "signal",
-                "steam",
-            ]
+        onLoaded: {
+            try {
+                const list = JSON.parse(text()).pinned
+                root.pinned = Array.isArray(list) ? list : root.defaults
+            } catch (e) {
+                root.pinned = root.defaults
+            }
         }
+        onLoadFailed: err => { if (err === FileViewError.FileNotFound) root.save(root.defaults) }
     }
 }
